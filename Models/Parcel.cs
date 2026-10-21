@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace PostalService
 {
@@ -34,7 +35,9 @@ namespace PostalService
                      
         }
 
-        
-
+        public override string ToString()
+        {
+            return $"{Id} and {Weight}";
+        }
     }
 }

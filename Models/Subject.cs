@@ -1,6 +1,6 @@
 ﻿using PostalService.Observer;
 
-namespace postalservice.Models
+namespace PostalService
 {
     public class Subject
     {
