@@ -1,4 +1,4 @@
-namespace postalservice.Models
+namespace PostalService
 {
     public class ErrorViewModel
     {

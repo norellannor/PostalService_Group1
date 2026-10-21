@@ -1,10 +1,10 @@
 ﻿namespace PostalService
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Parcel parcel = new Parcel(1, 150m, "Anna");
         }
     }
 }

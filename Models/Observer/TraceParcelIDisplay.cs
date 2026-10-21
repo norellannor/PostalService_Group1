@@ -1,4 +1,4 @@
-﻿namespace postalservice.Models.Observer
+﻿namespace PostalService.Observer
 {
     public class TraceParcelIDisplay : IObserver
     {
