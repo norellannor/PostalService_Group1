@@ -2,7 +2,7 @@
 {
     public class CompletedState : IParcelState
     {
-        void Handle(ParcelStatus parcelStatus)
+        public void Handle(ParcelStatus parcelStatus)
         {
             Console.WriteLine($"Ordern är nu slutförd. Byter tillstånd till...");
            

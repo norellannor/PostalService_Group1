@@ -1,4 +1,4 @@
-﻿using postalservice.Models.Observer;
+﻿using PostalService.Observer;
 
 namespace postalservice.Models
 {

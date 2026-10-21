@@ -1,4 +1,4 @@
-﻿namespace PostalService
+﻿namespace PostalService.State
 {
     public class ShippedState : IParcelState
     {

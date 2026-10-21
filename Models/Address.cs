@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace postalservice.Models
+namespace PostalService
 {
     public class Address
     {

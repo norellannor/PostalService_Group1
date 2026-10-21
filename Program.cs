@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Parcel parcel = new Parcel(1, 150m, "Anna");
+            Parcel parcel = new Parcel(1, 150m);
         }
     }
 }
