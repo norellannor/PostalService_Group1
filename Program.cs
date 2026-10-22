@@ -4,8 +4,11 @@
     {
         static void Main(string[] args)
         {
-            Parcel parcel = new Parcel(1, 150m);
-            Console.WriteLine(parcel);
+            //Parcel parcel = new Parcel(1, 150m);
+            //Console.WriteLine(parcel);
+
+            DemoClass.Run();
         }
+
     }
 }
