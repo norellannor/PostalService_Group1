@@ -46,37 +46,23 @@ namespace PostalService.Models
 
         }
 
-        public IShippingStrategy ReadShippingType(string question)
-        {
+        //public string ReadShippingType(string question)
+        //{
 
-            while (true)
-            {
-                Console.WriteLine("Välj Fraktyp:");
-                Console.WriteLine("1. Standardfrakt (3dagar):");
-                Console.WriteLine("2. Expressfrakt (2 dagar):");
-                Console.WriteLine("3. Ekonomifrakt (7dagar):");
+        //    while (true)
+        //    {
+        //        Console.WriteLine("Välj Fraktyp:");
+        //        Console.WriteLine("1. Standardfrakt (3dagar):");
+        //        Console.WriteLine("2. Expressfrakt (2 dagar):");
+        //        Console.WriteLine("3. Ekonomifrakt (7dagar):");
 
-                Console.WriteLine("Gör ett val mellan 1-3");
-                string userInput = Console.ReadLine();
+        //        Console.WriteLine("Gör ett val mellan 1-3");
+        //        string userInput = Console.ReadLine();
 
-                switch (userInput)
-                {
-                    case "1":
-                        return new StandardShipping();
+        //        return userInput;
 
-                    case "2":
-                        return new ExpressShipping();
-
-                    case "3":
-                        return new EconomyShipping();
-
-                    default:
-                        Console.WriteLine("Ogiltigt val, välj 1, 2 eller 3.");
-                        break;
-                }
-
-            }
-        }
+        //    }
+        //}
 
         
     }
