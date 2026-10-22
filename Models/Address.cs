@@ -17,8 +17,14 @@ namespace PostalService
             City = city;
         }
 
+
+        public override string ToString()
+        {
+            return $"{StreetAddress}, {PostalCode} {City}";
+        }
+
     }
 
-    
+
 
 }
