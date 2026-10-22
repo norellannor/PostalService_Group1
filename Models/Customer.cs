@@ -7,13 +7,13 @@ namespace PostalService
     public class Customer
     {
         public string Name { get; set; }
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        
-        public Address Address { get; set; }
+
+        public Address Address { get; private set; }
 
 
-        public Customer(string name, string email, string phoneNumber, Address address)
+        public Customer(string name, Address address, string email = "", string phoneNumber = "")
         {
             Name = name;
             Email = email;
@@ -21,6 +21,15 @@ namespace PostalService
             Address = address;
 
         }
-        
+
+
+        public override string ToString()
+        {
+            string text = Name;
+            if (!string.IsNullOrEmpty(Email)) text += $", {Email}";
+            if (!string.IsNullOrEmpty(PhoneNumber)) text += $", {PhoneNumber}";
+            return text;
+        }
+
     }
 }
