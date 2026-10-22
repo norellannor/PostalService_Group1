@@ -3,6 +3,7 @@
     public class ParcelStatus
     {
         public IParcelState State { get; set; }
+        public string Location { get; set; }
         public ParcelStatus()
         {
             //Starttillstånd
