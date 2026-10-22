@@ -25,7 +25,7 @@ namespace PostalService.Models
         }
 
 
-
+        //Skapa en emetod för att kolla ett paket 
     }
 }
 
