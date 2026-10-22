@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PostalService
+namespace PostalService.Models
 {
     public class Address
     {
@@ -17,8 +17,14 @@ namespace PostalService
             City = city;
         }
 
+
+        public override string ToString()
+        {
+            return $"{StreetAddress}, {PostalCode} {City}";
+        }
+
     }
 
-    
+
 
 }
