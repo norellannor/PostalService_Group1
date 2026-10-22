@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
-using PostalService.Models.ShippingStrategy;
-using PostalService.Models.WeightStrategy;
 
-namespace PostalService.Models
+namespace PostalService
 {
     public class Parcel
     {
