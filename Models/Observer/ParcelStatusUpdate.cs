@@ -1,4 +1,4 @@
-﻿namespace PostalService.Observer
+﻿namespace PostalService.Models.Observer
 {
     public class ParcelStatusUpdate : IObserver
     {
