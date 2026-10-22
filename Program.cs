@@ -1,4 +1,4 @@
-﻿namespace PostalService
+﻿namespace PostalService.Models
 {
     public class Program
     {
