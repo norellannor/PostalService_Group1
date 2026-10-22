@@ -59,6 +59,7 @@ namespace PostalService.Models
             int parcelSearch = Int32.Parse(Console.ReadLine());
 
             registry.FindParcelById(parcelSearch);
+            Console.WriteLine(registry.FindParcelById(parcelSearch));
         }
     }
 }
