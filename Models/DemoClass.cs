@@ -58,6 +58,8 @@ namespace PostalService.Models
             registry.AddParcel(parcel);                       // spara i dictionaryn
 
             Console.WriteLine($"Paketet är registrerat \n {parcel}.");
+
+            
            
             
             //ParcelRegistry registry = new ParcelRegistry();
