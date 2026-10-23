@@ -14,7 +14,7 @@ namespace PostalService.Models
         
          ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
 
-
+       
         private UserInput userInput = new UserInput();
 
         public Parcel CreateParcel()
@@ -23,6 +23,8 @@ namespace PostalService.Models
             Customer receiver = CreateCustomer("mottagaren");
             decimal weight = userInput.ReadDecimal("Ange vikt i kg (t.ex. 2,5):");
             IShippingStrategy shipping = ChooseShippingStrategy();
+
+           
 
             return new Parcel(weight, sender, receiver, shipping);
         }
@@ -67,6 +69,12 @@ namespace PostalService.Models
                         break;
                 }
             }
+        }
+
+        public void ConfirmCreatedParcel(Parcel parcel)
+        {
+            Console.WriteLine(parcel);
+            Console.WriteLine("Stämmer infon");
         }
     }
 }
