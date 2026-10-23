@@ -47,13 +47,13 @@ namespace PostalService.Models
             //UserInput input = new UserInput();
             //input.ReadString("Ange ditt namn:");
 
-            //ParcelCreator parcel = new ParcelCreator();
-            //Parcel parcelTest = parcel.CreateParcel();
+            ParcelCreator parcel = new ParcelCreator();
+            Parcel parcelTest = parcel.CreateParcel();
 
 
             ParcelRegistry registry = new ParcelRegistry();
-            //registry.AddParcel(parcelTest);
-            //Console.WriteLine(parcelTest);
+            registry.AddParcel(parcelTest);
+            Console.WriteLine(parcelTest);
 
             Console.WriteLine("Sök på ett paket");
             int parcelSearch = Int32.Parse(Console.ReadLine());
