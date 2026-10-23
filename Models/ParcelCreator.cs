@@ -24,6 +24,7 @@ namespace PostalService.Models
             decimal weight = userInput.ReadDecimal("Ange vikt i kg (t.ex. 2,5):");
             IShippingStrategy shipping = ChooseShippingStrategy();
 
+
             return new Parcel(weight, sender, receiver, shipping);
         }
 

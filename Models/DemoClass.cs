@@ -51,15 +51,18 @@ namespace PostalService.Models
             //Parcel parcelTest = parcel.CreateParcel();
 
 
-            ParcelRegistry registry = new ParcelRegistry();
-            //registry.AddParcel(parcelTest);
-            //Console.WriteLine(parcelTest);
+            //ParcelRegistry registry = new ParcelRegistry();
+            ////registry.AddParcel(parcelTest);
+            ////Console.WriteLine(parcelTest);
 
-            Console.WriteLine("Sök på ett paket");
-            int parcelSearch = Int32.Parse(Console.ReadLine());
+            //Console.WriteLine("Sök på ett paket");
+            //int parcelSearch = Int32.Parse(Console.ReadLine());
 
-            registry.FindParcelById(parcelSearch);
-            Console.WriteLine(registry.FindParcelById(parcelSearch));
+            //registry.FindParcelById(parcelSearch);
+            //Console.WriteLine(registry.FindParcelById(parcelSearch));
+
+            ConsoleMenu menu = new ConsoleMenu();
+            menu.Menu();
         }
     }
 }
