@@ -1,4 +1,4 @@
-﻿using PostalService.Model.State;
+﻿using PostalService.Models.State;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,64 +7,66 @@ using System.Threading.Tasks;
 
 namespace PostalService.Models.PostalCheckPoints
 {
-    internal class ServicePoint
+    public class ServicePoint
     {
         //Location måste sättas och kan inte ändras
         public required string Location { get; init; }
-        public int Priority { get; }
-        public DateTime ParcelRecievedDate { get;  }
-
+        
         //returnerar hur många paket som finns i kön just nu
         public int Count => ServicePointQueue.Count;
 
-        //string ska vara paketobjektet
-        private readonly PriorityQueue< string, (int, DateTime)> ServicePointQueue = new(); 
+        //Priorityqueuen som finns för paket som ska iväg
+        private readonly PriorityQueue< Parcel, (int, DateTime)> ServicePointQueue = new();
 
-        //Detta behövs förmodligen i paket-klass vid registrering men lämnar här sålänge
-        //Tupeln är kanske något som kopplas vid ombud? Objektet görs vid registreringen och tupeln kopplas vid ombud
-        
-        public ServicePoint(int priority, DateTime parcelRecievedDate)
-            { 
-                Priority = priority;
-                ParcelRecievedDate = parcelRecievedDate;            
-            }
+        //Queue som finns för paket som är klara för att hämtas av mottagare
+        private readonly Queue<Parcel> ServicePointReadyDeliveredQueue = new();
+
+
+
+
 
         //lägga till paketobjekt i kön. Objekt ska vara i parantesen
-       
-            //public bool AddParcel(Parcel parcel)
-            //{
-            //    if (parcel.State is not PendingState)
-            //    return false;                                      // bara registrerade paket tas emot
 
-            //    parcel.parcelRecievedDate = DateTime.Now;          // tupelns info sätts här
-            //    parcel.Location = Location;
-            //    parcel.NextState();                        // Registrerat -> Inlämnat hos ombud
+        public bool RecieveRegisteredParcel(Parcel parcel)
+        {
+            if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
+                return false;                                      // bara registrerade paket tas emot
 
-            //    ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.parcelReceivedDate.Value));
-            //    return true;
-            //}
-    
-        //Lasta ut paket och lägga till paket till transport
-        //public bool AddParcelFromTransport()
-        //{
-        //    if (Transport.TryDequeue(out var parcel, out _))
-        //    {
-        //        Transport.AddParcelToTransport(parcel);
-        //        return true;
-        //    }
-        //    return false;
-        //}
+            parcel.AddParcelReceivedDate();
+            parcel.NextState();                        // Registrerat och ändrar till nästa state
+            parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här
+           
 
-        //behövs metod för att lasta av från transport
-        //public bool LoadParcelToTransport()
-        //{
-        //    if (ServicePoint.TryDequeue(out var parcel, out _))
-        //    {
-        //        Transport.AddParcelToTransport(parcel);
-        //        return true;
-        //    }
-        //    return false;
-        //}
+            ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.ParcelReceivedDate.Value));
+            return true;
+        }
+
+        //Lasta ut från ombud och lägga till paket till transport
+        public bool LoadParcelFromServicePointToTransport(Transport transport)
+        {
+            if (!ServicePointQueue.TryDequeue(out var parcel, out _))
+                return false;                          // väg 1: kön är tom
+
+            if (parcel.Status.State is ParcelRecievedState)
+                parcel.NextState();
+
+            transport.AddParcelToTransport(parcel);
+            return true;                               // väg 2: allt gick bra
+        }
+
+            //behövs metod för att ta emot från transport
+        public bool LoadDeliveredParcelFromTransportToServicePoint(Transport transport)
+        {
+            var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
+            if (parcel is null)
+                return false;                                     // transporten var tom
+
+            parcel.NextState();                                   // Från state Shipped till Delivered
+            parcel.UpdateParcelLocation(Location);                // platsen blir ombudet
+
+            ServicePointReadyDeliveredQueue.Enqueue(parcel);
+            return true;
+        }
 
 
 
