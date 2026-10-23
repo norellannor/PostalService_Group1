@@ -1,9 +1,11 @@
-﻿using System;
+﻿using PostalService.Models.ShippingStrategy;
+using PostalService.Models.State;
+using PostalService.Models.WeightStrategy;
+using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Xml.Linq;
-using PostalService.Models.ShippingStrategy;
-using PostalService.Models.WeightStrategy;
 
 
 namespace PostalService.Models
@@ -13,6 +15,19 @@ namespace PostalService.Models
         public int Id { get; private set; }
         public decimal Weight { get; private set; }
         public IWeightStrategy WeightStrategy { get; private set; }
+        //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
+        public string? Location => Status.Location; 
+        
+
+        //Tupeln. Priority ska sättas vid registrering
+        public Parcel(int priority, DateTime parcelRecievedDate)
+        {
+            Priority = priority;
+            ParcelRecievedDate = parcelRecievedDate;
+        }
+        public int Priority { get; }
+        public DateTime? ParcelRecievedDate { get; private set; }
+       
 
         //public Address AddressSender { get; private set; }
         //public Address AddressReceiver { get; private set; }  //Detta får man med Customer Sender och Reciver, man sätter det bara en gång
@@ -24,7 +39,15 @@ namespace PostalService.Models
 
         public DateTime SentDate { get; private set; }
 
+        public ParcelStatus Status { get; } = new ParcelStatus();
+        //Paket mottaget vid ombud, behövs till tupeln. Börjar som null och sätts när mottagen
+        public DateTime? ParcelReceivedDate { get; private set; }
+
         //Har ska vi ha STATE get set osv 
+        public IParcelState State { get; private set; } = new PendingState();
+        public void NextState() => Status.NextState();
+        public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
+
 
 
         public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)
@@ -77,5 +100,14 @@ namespace PostalService.Models
                    $"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
 
         }
+
+        //Tar in paketets inlämningsdatum 
+        
+        public void AddParcelReceivedDate()
+        {
+            ParcelReceivedDate = DateTime.Now;
+        }
+
+        
     }
 }
