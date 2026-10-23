@@ -21,7 +21,7 @@ namespace PostalService.Models
         {
             Customer sender = CreateCustomer("avsändaren");
             Customer receiver = CreateCustomer("mottagaren");
-            decimal weight = userInput.ReadDecimal("Ange vikt i kg (t.ex. 2,5):");
+            decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
             IShippingStrategy shipping = ChooseShippingStrategy();
 
            
