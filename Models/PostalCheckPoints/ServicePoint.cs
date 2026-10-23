@@ -19,7 +19,7 @@ namespace PostalService.Models.PostalCheckPoints
         private readonly PriorityQueue< Parcel, (int, DateTime)> ServicePointQueue = new();
 
         //Queue som finns för paket som är klara för att hämtas av mottagare
-        private readonly Queue<Parcel> ServicePointReadyDeliveredQueue = new();
+        private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
 
 
 
@@ -32,12 +32,12 @@ namespace PostalService.Models.PostalCheckPoints
             if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
                 return false;                                      // bara registrerade paket tas emot
 
-            parcel.AddParcelReceivedDate();
+            parcel.AddParcelRecievedDate();
             parcel.NextState();                        // Registrerat och ändrar till nästa state
             parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här
            
 
-            ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.ParcelReceivedDate.Value));
+            ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate.Value));
             return true;
         }
 
@@ -64,8 +64,38 @@ namespace PostalService.Models.PostalCheckPoints
             parcel.NextState();                                   // Från state Shipped till Delivered
             parcel.UpdateParcelLocation(Location);                // platsen blir ombudet
 
-            ServicePointReadyDeliveredQueue.Enqueue(parcel);
+            ServicePointDeliveredQueue.Enqueue(parcel);
             return true;
+        }
+
+
+        //Vilka detaljer vill vi skriva ut 
+        public void ViewServicePointOutgoingParcels()
+        {
+            if (ServicePointQueue.Count == 0)
+            {
+                Console.WriteLine($"Finns inga utgående paket.");
+                return;
+            }
+            foreach (var item in ServicePointQueue.UnorderedItems)
+            {
+                Console.WriteLine(item.Element);   
+                Console.WriteLine();
+            }
+        }
+
+        public void ViewDeliveredParcels()
+        {
+            if (ServicePointDeliveredQueue.Count == 0)
+            {
+                Console.WriteLine($"Finns inga paket att hämtas ut..");
+                return;
+            }
+            foreach (var parcel in ServicePointDeliveredQueue)
+            {
+                Console.WriteLine($"{parcel}");
+                Console.WriteLine();
+            }
         }
 
 

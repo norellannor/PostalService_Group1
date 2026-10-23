@@ -18,13 +18,6 @@ namespace PostalService.Models
         //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
         public string? Location => Status.Location; 
         
-
-        //Tupeln. Priority ska sättas vid registrering
-        public Parcel(int priority, DateTime parcelRecievedDate)
-        {
-            Priority = priority;
-            ParcelRecievedDate = parcelRecievedDate;
-        }
         public int Priority { get; }
         public DateTime? ParcelRecievedDate { get; private set; }
        
@@ -38,16 +31,16 @@ namespace PostalService.Models
 
         public ParcelStatus Status { get; } = new ParcelStatus();
         //Paket mottaget vid ombud, behövs till tupeln. Börjar som null och sätts när mottagen
-        public DateTime? ParcelReceivedDate { get; private set; }
+        
 
-        //Har ska vi ha STATE get set osv 
-        public IParcelState State { get; private set; } = new PendingState();
+        
+        
         public void NextState() => Status.NextState();
         public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
 
 
 
-        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)
+        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy, int priority =2)
         {
             Weight = weight;
             Sender = sender;
@@ -55,6 +48,7 @@ namespace PostalService.Models
             ShippingStrategy = shippingStrategy;
             SentDate = DateTime.Today;
             WeightStrategy = SetWeightStrategy(weight);
+            Priority = priority;
         }
 
 
@@ -100,9 +94,9 @@ namespace PostalService.Models
 
         //Tar in paketets inlämningsdatum 
         
-        public void AddParcelReceivedDate()
+        public void AddParcelRecievedDate()
         {
-            ParcelReceivedDate = DateTime.Now;
+            ParcelRecievedDate = DateTime.Now;
         }
 
         

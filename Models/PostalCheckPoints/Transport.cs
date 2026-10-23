@@ -38,5 +38,33 @@ namespace PostalService.Models.PostalCheckPoints
                 return null;     // kön var tom
             }
         }
+
+        //Vilka detaljer vill vi skriva ut 
+        public void ViewTransportParcels()
+        {
+            if (TransportQueue.Count == 0)
+            {
+                Console.WriteLine($"{TransportName} är tom.");
+                return;
+            }
+            foreach (var parcel in TransportQueue) 
+            {
+                Console.WriteLine($"{parcel}");
+                Console.WriteLine();
+            }
+        }
+        public void ViewParcelsInTransport()
+        {
+            if (TransportQueue.Count == 0)
+            {
+                Console.WriteLine($"Finns inga paket i transporten");
+                return;
+            }
+            foreach (var parcel in TransportQueue)
+            {
+                Console.WriteLine($"{parcel}");
+                Console.WriteLine();
+            }
+        }
     }
 }
