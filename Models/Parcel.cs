@@ -34,17 +34,12 @@ namespace PostalService.Models
             Receiver = receiver;
             ShippingStrategy = shippingStrategy;
             SentDate = DateTime.Today;
-            WeightStrategy = ChooseWeightStrategy(weight);
+            WeightStrategy = SetWeightStrategy(weight);
         }
 
-        //Denna metod gör då att paketet känner till sitt Id som den får i ParcelRegistry.AddParcel()
-        public void AssignId(int id)
-        {
-            Id = id;
-        }
 
         //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i. Detta ska validera vilken strategy som ska väljas.
-        private IWeightStrategy ChooseWeightStrategy(decimal weight)
+        public IWeightStrategy SetWeightStrategy(decimal weight)
         {
 
             if (weight <= 2)
@@ -54,6 +49,14 @@ namespace PostalService.Models
             else
                 return new HeavyWeight();
         }
+
+        //Denna metod gör då att paketet känner till sitt Id som den får i ParcelRegistry.AddParcel()
+        public void AssignId(int id)
+        {
+            Id = id;
+        }
+
+        
 
         public decimal GetTotalShippingPrice()
         {
