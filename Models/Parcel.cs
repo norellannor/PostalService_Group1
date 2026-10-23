@@ -14,9 +14,6 @@ namespace PostalService.Models
         public decimal Weight { get; private set; }
         public IWeightStrategy WeightStrategy { get; private set; }
 
-        //public Address AddressSender { get; private set; }
-        //public Address AddressReceiver { get; private set; }  //Detta får man med Customer Sender och Reciver, man sätter det bara en gång
-        //istället för att ta in det två gånger, en adress kan forfarande ha flera kunder. Det är som att sätta en adress på mormor först och sen mormors adress på paketet.
         public Customer Sender { get; private set; }
         public Customer Receiver { get; private set; }
 

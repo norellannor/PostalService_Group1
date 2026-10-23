@@ -56,7 +56,7 @@ namespace PostalService.Models
            
         }
 
-
+        //Metoden tar in ett id, kollar om id finns och skickar ett värde(paket). 
         public Parcel? FindParcelById(int parcelId)
         {
             parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel);
@@ -67,9 +67,7 @@ namespace PostalService.Models
     }
 }
 
-    //metod för att lägga till paket
-    //Metod för att ta bort paket 
-    //Metod för att hitta paket i dictinary 
+    
 
   
 
