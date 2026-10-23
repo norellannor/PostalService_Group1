@@ -47,11 +47,19 @@ namespace PostalService.Models
             //UserInput input = new UserInput();
             //input.ReadString("Ange ditt namn:");
 
-            ParcelCreator parcel = new ParcelCreator();
-            Parcel parcelTest = parcel.CreateParcel();
+            //ParcelCreator parcel = new ParcelCreator();
+            //Parcel parcelTest = parcel.CreateParcel();
 
 
+            ParcelRegistry registry = new ParcelRegistry();   // håller alla paket
+            ParcelCreator creator = new ParcelCreator();      // frågar kunden och skapar paket
 
+            Parcel parcel = creator.ConfirmCreatedParcel();   // skapa + bekräfta
+            registry.AddParcel(parcel);                       // spara i dictionaryn
+
+            Console.WriteLine($"Paketet är registrerat \n {parcel}.");
+           
+            
             //ParcelRegistry registry = new ParcelRegistry();
             //registry.AddParcel(parcelTest);
             //Console.WriteLine(parcelTest);

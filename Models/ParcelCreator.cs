@@ -71,10 +71,39 @@ namespace PostalService.Models
             }
         }
 
-        public void ConfirmCreatedParcel(Parcel parcel)
+        public Parcel ConfirmCreatedParcel()
         {
-            Console.WriteLine(parcel);
-            Console.WriteLine("Stämmer infon");
+
+            Parcel parcel = CreateParcel();
+
+
+            while (true)
+            {
+                Console.WriteLine(parcel);
+                Console.WriteLine("Stämmer infon");
+                Console.WriteLine("1.Ja");
+                Console.WriteLine("2.Nej");
+
+                string choice = userInput.ReadString("Ditt val:");
+
+                switch (choice)
+                {
+                    case "1":
+                        return parcel;
+                    case "2":
+                        Console.WriteLine("Skriv i uppgifterna igen");
+                        parcel = CreateParcel();
+                        break;
+
+                    default:
+                        Console.WriteLine("Ogiltigt val");
+                        break;
+
+                }
+
+            }
+            
+           
         }
     }
 }
