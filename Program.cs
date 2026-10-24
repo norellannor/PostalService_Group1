@@ -15,6 +15,7 @@ namespace PostalService.Models
 
 
             //Testkod
+            //Ska flyttas ihop med menyerna 
             var registry = new ParcelRegistry();          // skapar paket 1001–1005
             var parcels = registry.GetAll().ToList();
 
@@ -43,7 +44,7 @@ namespace PostalService.Models
             //lasta paket som finns vid ombud som transporterar dem till Terminal A
             ombudLudvika.LoadParcelFromServicePointToTransport(transport1);
             //Föra över retur-paket till ombud som kommer från Terminal A
-            ombudLudvika.LoadDeliveredParcelFromTransportToServicePoint(transport6);
+            transport6.DeliverParcels(ombudBorlange);
             //Kolla på vilka paket som lämnats in och sen ska åka vidare
             ombudLudvika.ViewServicePointOutgoingParcels();
             //kolla på paket som kommit fram till destination och är färdiga att hämtas ut
@@ -56,8 +57,8 @@ namespace PostalService.Models
                 //ombudBorlänge.RecieveRegisteredParcel();
                 //lasta paket som finns vid ombud som transporterar dem till Terminal B. Retur, back again 
                 ombudBorlange.LoadParcelFromServicePointToTransport(transport1);
-                //Föra över paket som är framme vid sin destination. 
-                ombudBorlange.LoadDeliveredParcelFromTransportToServicePoint(transport6);
+                //Föra över paket som är framme vid sin destination.             
+                transport3.DeliverParcels(ombudBorlange);
                 //Kolla på vilka paket som lämnats in och sen ska åka vidare
                 ombudBorlange.ViewServicePointOutgoingParcels();
                 //kolla på paket som kommit fram till destination och är färdiga att hämtas ut

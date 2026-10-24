@@ -39,6 +39,15 @@ namespace PostalService.Models.PostalCheckPoints
             }
         }
 
+        public void DeliverParcels(ServicePoint servicePoint)
+        {
+            while (TransportQueue.TryDequeue(out Parcel? parcel))
+            {
+                servicePoint.ReceiveDeliveredParcel(parcel);
+            }
+        }
+
+
         //Vilka detaljer vill vi skriva ut 
         public void ViewTransportParcels()
         {

@@ -19,7 +19,10 @@ namespace PostalService.Models.PostalCheckPoints
         private readonly PriorityQueue< Parcel, (int, DateTime)> ServicePointQueue = new();
 
         //Queue som finns för paket som är klara för att hämtas av mottagare
-        private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
+        //Kom på att queue för att hämta ut inte var det smartaste
+        //private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
+        private readonly Dictionary<int, Parcel> ServicePointDeliveredParcelsDictionary = new();
+       
 
 
 
@@ -55,17 +58,24 @@ namespace PostalService.Models.PostalCheckPoints
         }
 
             //behövs metod för att ta emot från transport
-        public bool LoadDeliveredParcelFromTransportToServicePoint(Transport transport)
+            //Queue, inte smart när man ska hämta ut 
+        //public bool LoadDeliveredParcelFromTransportToServicePoint(Transport transport)
+        //{
+        //    var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
+        //    if (parcel is null)
+        //        return false;                                     // transporten var tom
+
+        //    parcel.NextState();                                   // Från state Shipped till Delivered
+        //    parcel.UpdateParcelLocation(Location);                // platsen blir ombudet
+
+        //    ServicePointDeliveredQueue.Enqueue(parcel);
+        //    return true;
+        //}
+
+        public void ReceiveDeliveredParcel(Parcel parcel)
         {
-            var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
-            if (parcel is null)
-                return false;                                     // transporten var tom
-
-            parcel.NextState();                                   // Från state Shipped till Delivered
-            parcel.UpdateParcelLocation(Location);                // platsen blir ombudet
-
-            ServicePointDeliveredQueue.Enqueue(parcel);
-            return true;
+            //Hakpaarantesen blir nyckeln efter = blir värdet
+            ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
 
@@ -86,17 +96,19 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void ViewDeliveredParcels()
         {
-            if (ServicePointDeliveredQueue.Count == 0)
+            if (ServicePointDeliveredParcelsDictionary.Count == 0)
             {
                 Console.WriteLine($"Finns inga paket att hämtas ut..");
                 return;
             }
-            foreach (var parcel in ServicePointDeliveredQueue)
+            foreach (var parcel in ServicePointDeliveredParcelsDictionary)
             {
                 Console.WriteLine($"{parcel}");
                 Console.WriteLine();
             }
         }
+
+        
 
 
 
