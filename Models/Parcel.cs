@@ -20,6 +20,7 @@ namespace PostalService.Models
         
         public int Priority { get; }
         public DateTime? ParcelRecievedDate { get; private set; }
+        public int? Destination { get; private set; }
        
 
         public Customer Sender { get; private set; }
@@ -99,6 +100,10 @@ namespace PostalService.Models
             ParcelRecievedDate = DateTime.Now;
         }
 
+        public void AddParcelDestination()
+        { 
+            Destination = Destination;
+        }
         
     }
 }

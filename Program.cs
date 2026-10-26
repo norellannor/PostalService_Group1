@@ -20,8 +20,8 @@ namespace PostalService.Models
             var parcels = registry.GetAll().ToList();
 
             //Ombuden
-            var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika" };
-            var ombudBorlange = new ServicePoint { Location = "Ombud Borkänge" };
+            var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
+            var ombudBorlange = new ServicePoint { Location = "Ombud Borkänge", Destination = 2 };
             
             //terminalerna
             var terminalA = new ParcelStation { Location = "Terminal A"};

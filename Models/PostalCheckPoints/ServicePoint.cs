@@ -23,18 +23,19 @@ namespace PostalService.Models.PostalCheckPoints
         //private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
         private readonly Dictionary<int, Parcel> ServicePointDeliveredParcelsDictionary = new();
        
+        public int Destination { get; init; }
 
 
 
 
-
-        //lägga till paketobjekt i kön. Objekt ska vara i parantesen
+        //lägga till paketobjekt i kön. 
 
         public bool RecieveRegisteredParcel(Parcel parcel)
         {
             if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
                 return false;                                      // bara registrerade paket tas emot
 
+            parcel.AddParcelDestination();
             parcel.AddParcelRecievedDate();
             parcel.NextState();                        // Registrerat och ändrar till nästa state
             parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här
@@ -74,7 +75,8 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void ReceiveDeliveredParcel(Parcel parcel)
         {
-            //Hakpaarantesen blir nyckeln efter = blir värdet
+            parcel.NextState();                        
+            parcel.UpdateParcelLocation(Location);
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
