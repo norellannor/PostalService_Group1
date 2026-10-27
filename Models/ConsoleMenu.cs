@@ -12,6 +12,7 @@ namespace PostalService.Models
         public void Menu(){
             bool loopMenu = true;
 
+            ParcelCreator createNewParcel= new ParcelCreator();
             while (loopMenu)
             {
 
@@ -32,6 +33,7 @@ namespace PostalService.Models
                     case "1":
                         //Lägg in objekt från createparcel
                         Console.WriteLine("Du har valt 1");
+                        createNewParcel.CreateParcel();
                         break;
                     case "2":
                         //Lägg in metod från ParcelRegistry

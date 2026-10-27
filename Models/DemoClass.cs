@@ -51,6 +51,12 @@ namespace PostalService.Models
             //Parcel parcelTest = parcel.CreateParcel();
 
 
+            
+
+            ConsoleMenu menu = new ConsoleMenu();
+
+            menu.Menu();
+            
             ParcelRegistry registry = new ParcelRegistry();   // håller alla paket
             ParcelCreator creator = new ParcelCreator();      // frågar kunden och skapar paket
 
@@ -59,8 +65,7 @@ namespace PostalService.Models
 
             Console.WriteLine($"Paketet är registrerat \n {parcel}.");
 
-            
-           
+
             
             //ParcelRegistry registry = new ParcelRegistry();
             //registry.AddParcel(parcelTest);
