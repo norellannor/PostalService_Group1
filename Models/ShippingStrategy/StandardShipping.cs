@@ -10,6 +10,8 @@ namespace PostalService.Models.ShippingStrategy
     {
         public string ShippingType => "Standardfrakt";
 
+        public int Priority => 2;
+
         public decimal BasePrice => 59m;
         public DateTime CalculateEstimatedDeliveryDate(DateTime sentDate) => sentDate.AddDays(3);
     }
