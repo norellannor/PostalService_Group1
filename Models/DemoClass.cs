@@ -130,7 +130,7 @@ namespace PostalService.Models
                 ////terminalB.ViewParcelsGoingToDestinationA();
 
                 ////Kunna kolla vilka paket som finns i de olika transporterna
-                //transport1.ViewParcelsInTransport();
+                
                 //transport2.ViewParcelsInTransport();
                 //transport3.ViewParcelsInTransport();
                 //transport4.ViewParcelsInTransport();
@@ -164,7 +164,9 @@ namespace PostalService.Models
 
             ombudLudvika.LoadParcelFromServicePointToTransport(transport1); //laddat paket till transport
             transport1.ViewParcelsInTransport();
+
             terminalA.AddParcelTowardsDestinationB(transport1);
+
             terminalA.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport2);
             terminalB.AddParcelTowardsDestinationB(transport2);
             terminalB.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport3);

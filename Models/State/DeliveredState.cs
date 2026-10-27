@@ -4,8 +4,8 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"Paket finns nu vid .... och är redo för att hämtas.");
-            parcelStatus.State = new PickedUpState();
+            Console.WriteLine($"P[Levererad Paketet finns att hämta." );
+            parcelStatus.State = new CompletedState();
         }
 
         //behöver uppdateras när vår poststation är klar

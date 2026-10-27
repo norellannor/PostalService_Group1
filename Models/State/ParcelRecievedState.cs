@@ -4,7 +4,7 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"Paket är mottaget och redo för leverans.");
+            Console.WriteLine($"[Inlämnad] Paketet inlämnat.");
             parcelStatus.State = new ShippedState();
         }
 

@@ -4,7 +4,7 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"Leveransen är nu slutförd och paketet är hämtat.");
+            Console.WriteLine($"[Hämtad] Paketet är hämtat.");
 
         }
 

@@ -4,7 +4,7 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"Paket finns nu hos oss och befinner sig just nu...");
+            Console.WriteLine($"[Skickad] Paketet är påväg.");
             parcelStatus.State = new DeliveredState();
         }
 
