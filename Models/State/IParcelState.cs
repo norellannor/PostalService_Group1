@@ -2,7 +2,7 @@
 {
     public interface IParcelState
     {
-        string State { get; }
+        string StateText { get; }
         void Handle(ParcelStatus parcelStatus);
 
         void UpdateLocation(ParcelStatus parcelStatus, string parcelLocation);

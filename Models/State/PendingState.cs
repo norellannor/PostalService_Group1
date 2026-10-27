@@ -15,6 +15,6 @@
             parcelStatus.Location = newParcelLocation;
         }
 
-        public string State => "[Registrerat] Paket är registrerat och är redo för att lämnas in.";
+        public string StateText => "[Registrerat] Paket är registrerat och är redo för att lämnas in.";
     }
 }

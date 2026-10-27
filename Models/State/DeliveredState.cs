@@ -2,7 +2,7 @@
 {
     public class DeliveredState : IParcelState
     {
-        public string State => "[Levererad] Paketet finns att hämta.";
+        public string StateText => "[Levererad] Paketet finns att hämta.";
         public void Handle(ParcelStatus parcelStatus)
         {
             parcelStatus.State = new CompletedState();

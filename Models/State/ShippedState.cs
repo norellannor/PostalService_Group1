@@ -2,7 +2,7 @@
 {
     public class ShippedState : IParcelState
     {
-        public string State => "[Skickad] Paketet är påväg.";
+        public string StateText => "[Skickad] Paketet är påväg.";
         public void Handle(ParcelStatus parcelStatus)
         {
 

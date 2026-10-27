@@ -2,7 +2,7 @@
 {
     public class ParcelRecievedState : IParcelState
     {
-        public string State => "[Inlämnad] Paketet inlämnat.";
+        public string StateText => "[Inlämnad] Paketet inlämnat.";
         public void Handle(ParcelStatus parcelStatus)
         {
            

@@ -2,7 +2,7 @@
 {
     public class CompletedState : IParcelState
     {
-        public string State => "[Hämtad] Paketet är hämtat.";
+        public string StateText => "[Hämtad] Paketet är hämtat.";
         public void Handle(ParcelStatus parcelStatus)
         {
 
