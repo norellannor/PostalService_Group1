@@ -11,16 +11,6 @@ namespace PostalService.Models
             //Console.WriteLine(parcel);
 
             DemoClass.Run();
-
-
-
-            
-
-
-
-
-            } 
-
            
         }
 
