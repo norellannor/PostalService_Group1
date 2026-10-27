@@ -51,15 +51,30 @@ namespace PostalService.Models
             //Parcel parcelTest = parcel.CreateParcel();
 
 
-            ParcelRegistry registry = new ParcelRegistry();
+            
+
+            ConsoleMenu menu = new ConsoleMenu();
+
+            menu.Menu();
+            
+            ParcelRegistry registry = new ParcelRegistry();   // håller alla paket
+            ParcelCreator creator = new ParcelCreator();      // frågar kunden och skapar paket
+
+            Parcel parcel = creator.ConfirmCreatedParcel();   // skapa + bekräfta
+            registry.AddParcel(parcel);                       // spara i dictionaryn
+
+            Console.WriteLine($"Paketet är registrerat \n {parcel}.");
+
+
+            
+            //ParcelRegistry registry = new ParcelRegistry();
             //registry.AddParcel(parcelTest);
             //Console.WriteLine(parcelTest);
 
-            ClearConsole();
-            Console.WriteLine("Sök på ett paket");
-            int parcelSearch = Int32.Parse(Console.ReadLine());
+            //Console.WriteLine("Sök på ett paket");
+            //int parcelSearch = Int32.Parse(Console.ReadLine());
 
-            Console.WriteLine(registry.FindParcelById(parcelSearch));
+            //registry.FindParcelById(parcelSearch);
         }
 
            public static void ClearConsole()

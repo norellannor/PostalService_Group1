@@ -1,4 +1,4 @@
-﻿namespace PostalService.Model.State
+﻿namespace PostalService.Models.State
 {
     public class ParcelRecievedState : IParcelState
     {
