@@ -4,7 +4,7 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"P[Levererad Paketet finns att hämta." );
+            Console.WriteLine($"[Levererad] Paketet finns att hämta.");
             parcelStatus.State = new CompletedState();
         }
 

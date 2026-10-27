@@ -4,7 +4,7 @@
     {
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"[Registrerat ]Paket är registrerat och är redo för att lämnas in.");
+            Console.WriteLine($"[Registrerat] Paket är registrerat och är redo för att lämnas in.");
             parcelStatus.State = new ParcelRecievedState();
         }
 
