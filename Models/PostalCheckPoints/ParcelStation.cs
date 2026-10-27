@@ -54,10 +54,8 @@ namespace PostalService.Models.PostalCheckPoints
             if (!ParcelStationPriorityQueueTowardsDestinationB.TryDequeue(out var parcel, out _))
                 return false;                          // väg 1: kön är tom
 
-            if (parcel.Status.State is ParcelRecievedState)
-                Console.WriteLine("Paket är i transporten.");
                 transport.AddParcelToTransport(parcel);
-            return true;                               // väg 2: allt gick bra
+                return true;                               // väg 2: allt gick bra
         }
 
         //...and back again
