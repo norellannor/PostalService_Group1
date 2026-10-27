@@ -64,6 +64,10 @@ namespace PostalService.Models
                 return parcel;
             }
 
+            return null;   // inget paket med det id:t
+        }
+
+
         //Skapa en emetod för att kolla ett paket 
 
         //För testning 
