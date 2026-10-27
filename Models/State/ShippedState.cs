@@ -2,9 +2,10 @@
 {
     public class ShippedState : IParcelState
     {
+        public string State => "[Skickad] Paketet är påväg.";
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"[Skickad] Paketet är påväg.");
+
             parcelStatus.State = new DeliveredState();
         }
 
