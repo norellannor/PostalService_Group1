@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PostalService.Models.PostalCheckPoints;
 
 namespace PostalService.Models
 {
@@ -11,6 +12,8 @@ namespace PostalService.Models
     {
         public void Menu(){
             bool loopMenu = true;
+            var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
+            Parcel parcel;
 
             ParcelCreator createNewParcel= new ParcelCreator();
             while (loopMenu)
@@ -19,10 +22,12 @@ namespace PostalService.Models
                 Console.WriteLine("*******************************");
                 Console.WriteLine("   Paketleverans och spårning  ");
                 Console.WriteLine("*******************************");
-                Console.WriteLine("1. Registrera paket");
+                Console.WriteLine("1. Registrera paket och ta emot");
                 Console.WriteLine("2. Spåra paket med försendelse-id");
                 Console.WriteLine("3. Logga in som administratör");
-                Console.WriteLine("4. Avsluta");
+                Console.WriteLine("4.Ta emot paket vid Ombud Borlänge");
+                Console.WriteLine("5. Visa paket vid Ombud Borlänge");
+                Console.WriteLine("5. Avsluta");
                 Console.Write("Gör ett val mellan 1-4: ");
 
                 string userInputFromMenu = Console.ReadLine();
@@ -34,6 +39,9 @@ namespace PostalService.Models
                         //Lägg in objekt från createparcel
                         Console.WriteLine("Du har valt 1");
                         createNewParcel.CreateParcel();
+                        
+                        parcel = createNewParcel.ConfirmCreatedParcel();
+                        ombudLudvika.RecieveRegisteredParcel(parcel);
                         break;
                     case "2":
                         //Lägg in metod från ParcelRegistry
@@ -54,6 +62,9 @@ namespace PostalService.Models
                         Console.WriteLine("Du har valt 3");
                         break;
                     case "4":
+                        ombudLudvika.ViewServicePointOutgoingParcels();
+                        break;
+                    case "5":
                         Console.WriteLine("*************************");
                         Console.WriteLine("*                       *");
                         Console.WriteLine("*  Programmet avslutas  *");
@@ -61,6 +72,9 @@ namespace PostalService.Models
                         Console.WriteLine("*************************");
                         Environment.Exit(0);
                         break;
+
+                    
+
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Yellow;

@@ -37,7 +37,9 @@ namespace PostalService.Models.PostalCheckPoints
 
             parcel.AddParcelDestination();
             parcel.AddParcelRecievedDate();
-            parcel.NextState();                        // Registrerat och ändrar till nästa state
+            parcel.NextState();
+            Console.WriteLine("Paket är mottaget");
+            // Registrerat och ändrar till nästa state
             parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här
            
 
@@ -55,6 +57,7 @@ namespace PostalService.Models.PostalCheckPoints
                 parcel.NextState();
 
             transport.AddParcelToTransport(parcel);
+            Console.WriteLine("Paket är lastat vid ombud");
             return true;                               // väg 2: allt gick bra
         }
 

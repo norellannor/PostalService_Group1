@@ -16,7 +16,7 @@ namespace PostalService.Models.PostalCheckPoints
         private readonly PriorityQueue<Parcel, (int, DateTime)> ParcelStationPriorityQueueTowardsDestinationB = new();
         
         //...and back again. Kö för Paket som är påväg mot plats A.Retur
-        private readonly PriorityQueue<Parcel, (int, DateTime)> ParcelStationPriorityQueueTowardsDestinationA = new();
+        //private readonly PriorityQueue<Parcel, (int, DateTime)> ParcelStationPriorityQueueTowardsDestinationA = new();
        
         //Mot B - there...
         public bool AddParcelTowardsDestinationB(Transport transport)
@@ -25,7 +25,8 @@ namespace PostalService.Models.PostalCheckPoints
             if (parcel is null)
                 return false;                                     // transporten var tom
 
-            parcel.UpdateParcelLocation(Location);                
+            parcel.UpdateParcelLocation(Location);
+            Console.WriteLine("Paket är mottaget vid station");
 
             ParcelStationPriorityQueueTowardsDestinationB.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
             return true;
@@ -33,18 +34,18 @@ namespace PostalService.Models.PostalCheckPoints
         }
 
         //mot A - retur (...and back again)
-        public bool AddParcelTowardsDestinationA(Transport transport)
-        {
-            var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
-            if (parcel is null)
-                return false;                                     // transporten var tom
+        //public bool AddParcelTowardsDestinationA(Transport transport)
+        //{
+        //    var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
+        //    if (parcel is null)
+        //        return false;                                     // transporten var tom
 
-            parcel.UpdateParcelLocation(Location);                
+        //    parcel.UpdateParcelLocation(Location);                
 
-            ParcelStationPriorityQueueTowardsDestinationA.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
-            return true;
+        //    ParcelStationPriorityQueueTowardsDestinationA.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
+        //    return true;
 
-        }
+        //}
         
 
         //There...
@@ -54,51 +55,51 @@ namespace PostalService.Models.PostalCheckPoints
                 return false;                          // väg 1: kön är tom
 
             if (parcel.Status.State is ParcelRecievedState)
-
+                Console.WriteLine("Paket är i transporten.");
                 transport.AddParcelToTransport(parcel);
             return true;                               // väg 2: allt gick bra
         }
 
         //...and back again
-        public bool LoadParcelFromParcelStationToTransportTowardsDestinationA(Transport transport)
-        {
-            if (!ParcelStationPriorityQueueTowardsDestinationA.TryDequeue(out var parcel, out _))
-                return false;
+        //public bool LoadParcelFromParcelStationToTransportTowardsDestinationA(Transport transport)
+        //{
+        //    if (!ParcelStationPriorityQueueTowardsDestinationA.TryDequeue(out var parcel, out _))
+        //        return false;
 
-            transport.AddParcelToTransport(parcel);
-            return true;
-        }
+        //    transport.AddParcelToTransport(parcel);
+        //    return true;
+        //}
 
         // Tittar på alla paket som finns i terminalen påväg mot plats B
         public void ViewParcelsGoingToDestinationB()
         {
-            if (ParcelStationPriorityQueueTowardsDestinationA.Count == 0)
+            if (ParcelStationPriorityQueueTowardsDestinationB.Count == 0)
             {
                 Console.WriteLine($"Finns inga utgående paket här som ska till Borlänge.");
                 Console.WriteLine();
                 return;
             }
-            foreach (var item in ParcelStationPriorityQueueTowardsDestinationA.UnorderedItems)
+            foreach (var item in ParcelStationPriorityQueueTowardsDestinationB.UnorderedItems)
             {
                 Console.WriteLine(item.Element);
                 Console.WriteLine();
             }
         }
         //Tittar på alla paket i kön mot plats A. Retur 
-        public void ViewParcelsGoingToDestinationA()
-        {
-            if (ParcelStationPriorityQueueTowardsDestinationA.Count == 0)
-            {
-                Console.WriteLine($"Finns inga paket här som ska till Ludvika.");
-                Console.WriteLine();
-                return;
-            }
-            foreach (var item in ParcelStationPriorityQueueTowardsDestinationA.UnorderedItems)
-            {
-                Console.WriteLine(item.Element);
-                Console.WriteLine();
-            }
-        }
+        //public void ViewParcelsGoingToDestinationA()
+        //{
+        //    if (ParcelStationPriorityQueueTowardsDestinationA.Count == 0)
+        //    {
+        //        Console.WriteLine($"Finns inga paket här som ska till Ludvika.");
+        //        Console.WriteLine();
+        //        return;
+        //    }
+        //    foreach (var item in ParcelStationPriorityQueueTowardsDestinationA.UnorderedItems)
+        //    {
+        //        Console.WriteLine(item.Element);
+        //        Console.WriteLine();
+        //    }
+        //}
         
     }
 }

@@ -21,11 +21,11 @@ namespace PostalService.Models
 
             //Ombuden
             var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
-            var ombudBorlange = new ServicePoint { Location = "Ombud Borkänge", Destination = 2 };
+            var ombudBorlange = new ServicePoint { Location = "Ombud Borlänge", Destination = 2 };
             
             //terminalerna
             var terminalA = new ParcelStation { Location = "Terminal A"};
-            var terminalB = new ParcelStation { Location = "Terminal A" };
+            var terminalB = new ParcelStation { Location = "Terminal B" };
 
             //Transporterna
             var transport1 = new Transport("Transport 1", "Under transport. Från Ombud Ludvika mot Terminal A");
@@ -56,7 +56,7 @@ namespace PostalService.Models
                 //Kunna ta in ett paket från användaren som används i nedan metod. Paketet ska in i parantesen
                 //ombudBorlänge.RecieveRegisteredParcel();
                 //lasta paket som finns vid ombud som transporterar dem till Terminal B. Retur, back again 
-                ombudBorlange.LoadParcelFromServicePointToTransport(transport1);
+                //ombudBorlange.LoadParcelFromServicePointToTransport(transport1);
                 //Föra över paket som är framme vid sin destination.             
                 transport3.DeliverParcels(ombudBorlange);
                 //Kolla på vilka paket som lämnats in och sen ska åka vidare
@@ -68,37 +68,37 @@ namespace PostalService.Models
                 //Lägga till paket från transport som kommer från Ludvika och är påväg till Desionation B (there)
                 terminalA.AddParcelTowardsDestinationB(transport1);
                 //Retur. Lägga till paket från transport som kommer ifrån Terminal B som är påväg till Desionation A (back again)
-                terminalA.AddParcelTowardsDestinationB(transport5);
+                //terminalA.AddParcelTowardsDestinationA(transport5);
                 //Ladda transport med paket mot Borlänge (Plats B, there)
                 terminalA.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport2);
                 //Ladda transport med paket som är påväg till ombud Ludvika (Plats A, back again)
-                terminalA.LoadParcelFromParcelStationToTransportTowardsDestinationA(transport6);
+                //terminalA.LoadParcelFromParcelStationToTransportTowardsDestinationA(transport6);
                 //Kolla alla paket som finns i kön påväg till Borlänge (Plats B, there)
                 terminalA.ViewParcelsGoingToDestinationB();
                 //Kolla alla paket som finns i returkön påväg till Ludvika (Plats B, back again)
-                terminalA.ViewParcelsGoingToDestinationA();
+                //terminalA.ViewParcelsGoingToDestinationA();
 
                 //Terminal B
                 //Lägga till paket från transport som kommer från Terminal A och är påväg till Borlänge (Desionation B, there)
                 terminalB.AddParcelTowardsDestinationB(transport2);
-                //Retur. Lägga till paket från transport som kommer ifrån ombud Borlänge och är påväg till Desionation A (back again)
-                terminalB.AddParcelTowardsDestinationB(transport4);
+                ////Retur. Lägga till paket från transport som kommer ifrån ombud Borlänge och är påväg till Desionation A (back again)
+                //terminalB.AddParcelTowardsDestinationB(transport4);
                 //Ladda transport med paket mot ombud Borlänge (Plats B, there)
                 terminalB.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport3);
                 //Ladda transport med paket mot Terminal A (Plats B, back again)
-                terminalB.LoadParcelFromParcelStationToTransportTowardsDestinationA(transport5);
+                //terminalB.LoadParcelFromParcelStationToTransportTowardsDestinationA(transport5);
                 //Kolla alla paket som finns i kön påväg till Borlänge (Plats B, there)
                 terminalB.ViewParcelsGoingToDestinationB();
                 //Kolla alla paket som finns i returkön påväg till Ludvika (Plats B, back again)
-                terminalB.ViewParcelsGoingToDestinationA();
+                //terminalB.ViewParcelsGoingToDestinationA();
 
                 //Kunna kolla vilka paket som finns i de olika transporterna
                 transport1.ViewParcelsInTransport();
                 transport2.ViewParcelsInTransport();
                 transport3.ViewParcelsInTransport();
-                transport4.ViewParcelsInTransport();
-                transport5.ViewParcelsInTransport();
-                transport6.ViewParcelsInTransport();
+                //transport4.ViewParcelsInTransport();
+                //transport5.ViewParcelsInTransport();
+                //transport6.ViewParcelsInTransport();
 
                 //Behöver också kunna söka paket
 
