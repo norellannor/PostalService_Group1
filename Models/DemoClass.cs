@@ -96,5 +96,10 @@ namespace PostalService.Models
 
             //registry.FindParcelById(parcelSearch);
         }
+
+           public static void ClearConsole()
+        {
+            Console.Clear();
+        }
     }
 }

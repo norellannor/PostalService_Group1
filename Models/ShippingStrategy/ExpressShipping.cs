@@ -11,6 +11,8 @@ namespace PostalService.Models.ShippingStrategy
 
         public string ShippingType => "Expressfrakt";
 
+        public int Priority => 1;
+
         public decimal BasePrice => 99m;
 
         public DateTime CalculateEstimatedDeliveryDate(DateTime sentDate) => sentDate.AddDays(2);

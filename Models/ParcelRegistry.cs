@@ -59,9 +59,10 @@ namespace PostalService.Models
         //Metoden tar in ett id, kollar om id finns och skickar ett värde(paket). 
         public Parcel? FindParcelById(int parcelId)
         {
-            parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel);
-            return parcel;
-        }
+            if (parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel))
+            {
+                return parcel;
+            }
 
         //Skapa en emetod för att kolla ett paket 
 

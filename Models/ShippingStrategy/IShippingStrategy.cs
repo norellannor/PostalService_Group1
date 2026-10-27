@@ -10,6 +10,7 @@ namespace PostalService.Models.ShippingStrategy
     {
         string ShippingType { get; }
         decimal BasePrice { get; }
+        int Priority { get; }
         DateTime CalculateEstimatedDeliveryDate(DateTime sentDate);
 
     }

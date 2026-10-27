@@ -47,8 +47,8 @@ namespace PostalService.Models
             while (true)
             {
                 Console.WriteLine("Välj frakt:");
-                Console.WriteLine("1. Standard (3 dagar)");
-                Console.WriteLine("2. Express (2 dagar)");
+                Console.WriteLine("1. Express(2 dagar)");
+                Console.WriteLine("2. Standard (3 dagar)");
                 Console.WriteLine("3. Ekonomi (7 dagar)");
 
                 string choice = userInput.ReadString("Ditt val:");
@@ -56,10 +56,10 @@ namespace PostalService.Models
                 switch (choice)
                 {
                     case "1":
-                        return new StandardShipping();
+                        return new ExpressShipping();
 
                     case "2":
-                        return new ExpressShipping();
+                        return new StandardShipping();
 
                     case "3":
                         return new EconomyShipping();
