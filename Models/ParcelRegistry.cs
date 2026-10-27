@@ -56,14 +56,16 @@ namespace PostalService.Models
            
         }
 
-
         public Parcel? FindParcelById(int parcelId)
         {
-            parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel);
-            return parcel;
-        }
+            if (parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel))
+            {
+                return parcel;
+            }
 
-        //Skapa en emetod för att kolla ett paket 
+            Console.WriteLine("Paketet kunde inte hittas. ");
+            return null;
+        }
     }
 }
 

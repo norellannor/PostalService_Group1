@@ -55,11 +55,16 @@ namespace PostalService.Models
             //registry.AddParcel(parcelTest);
             //Console.WriteLine(parcelTest);
 
+            ClearConsole();
             Console.WriteLine("Sök på ett paket");
             int parcelSearch = Int32.Parse(Console.ReadLine());
 
-            registry.FindParcelById(parcelSearch);
             Console.WriteLine(registry.FindParcelById(parcelSearch));
+        }
+
+           public static void ClearConsole()
+        {
+            Console.Clear();
         }
     }
 }
