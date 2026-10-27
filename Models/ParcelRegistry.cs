@@ -1,6 +1,7 @@
 ﻿using PostalService.Models.ShippingStrategy;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace PostalService.Models
@@ -64,7 +65,9 @@ namespace PostalService.Models
                 return parcel;
             }
 
-        }
+            return null;
+
+        } 
 
         //Skapa en emetod för att kolla ett paket 
 
