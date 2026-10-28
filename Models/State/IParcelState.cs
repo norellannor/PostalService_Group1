@@ -5,7 +5,7 @@
         string StateText { get; }
         void Handle(ParcelStatus parcelStatus);
 
-        void UpdateLocation(ParcelStatus parcelStatus, string parcelLocation);
+        //void UpdateLocation(ParcelStatus parcelStatus, string parcelLocation);
 
     }
 }

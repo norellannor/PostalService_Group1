@@ -2,16 +2,19 @@
 {
     public class CompletedState : IParcelState
     {
-        public string StateText => "[Hämtad] Paketet är hämtat.";
+        public string StateText => "[Mottaget] Paketet är hämtat av mottagaren.";
+
+        //Sista tillståndet, inget mer händer
         public void Handle(ParcelStatus parcelStatus)
         {
-
         }
 
-        //behöver uppdateras när vår poststation är klar
-        public void UpdateLocation(ParcelStatus parcelStatus, string parcelLocation)
-        {
-            Console.WriteLine("Paketet är levererat och hämtat av mottagaren.");
-        }
+
+
+
     }
+
+
+
+
 }

@@ -7,11 +7,5 @@
         {
             parcelStatus.State = new CompletedState();
         }
-
-        //behöver uppdateras när vår poststation är klar
-        public void UpdateLocation(ParcelStatus parcelStatus, string newParcelLocation)
-        {
-            parcelStatus.Location = newParcelLocation;
-        }
     }
 }

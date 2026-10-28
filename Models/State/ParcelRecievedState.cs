@@ -2,17 +2,12 @@
 {
     public class ParcelRecievedState : IParcelState
     {
-        public string StateText => "[Inlämnad] Paketet inlämnat.";
+        public string StateText => "[Inlämnat] Paketet är inlämnat hos Ombud Ludvika.";
+
         public void Handle(ParcelStatus parcelStatus)
         {
-           
             parcelStatus.State = new ShippedState();
         }
-
-        //behöver uppdateras när vår poststation är klar
-        public void UpdateLocation(ParcelStatus parcelStatus, string newParcelLocation)
-        { 
-            parcelStatus.Location = newParcelLocation;
-        }
+        
     }
 }

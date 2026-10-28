@@ -6,13 +6,7 @@
         public void Handle(ParcelStatus parcelStatus)
         {
 
-            parcelStatus.State = new DeliveredState();
-        }
-
-        //behöver uppdateras när vår poststation är klar
-        public void UpdateLocation(ParcelStatus parcelStatus, string newParcelLocation)
-        {
-            parcelStatus.Location = newParcelLocation;
+            parcelStatus.State = new SortedAtStationAState();
         }
     }
 }
