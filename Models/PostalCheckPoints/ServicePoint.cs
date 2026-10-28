@@ -10,7 +10,7 @@ namespace PostalService.Models.PostalCheckPoints
     public class ServicePoint
     {
         //Location måste sättas och kan inte ändras
-        public required string Location { get; init; }
+        //public required string Location { get; init; }
 
         //returnerar hur många paket som finns i kön just nu
         public int Count => ServicePointQueue.Count;
@@ -23,10 +23,10 @@ namespace PostalService.Models.PostalCheckPoints
         //private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
         private readonly Dictionary<int, Parcel> ServicePointDeliveredParcelsDictionary = new();
 
-        public int Destination { get; init; }
+        //public int Destination { get; init; }
 
 
-
+        ParcelRegistry registry = new ParcelRegistry();
 
         //lägga till paketobjekt i kön. 
 
@@ -35,7 +35,7 @@ namespace PostalService.Models.PostalCheckPoints
             if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
                 return false;                                      // bara registrerade paket tas emot
 
-            parcel.AddParcelDestination();
+            //parcel.AddParcelDestination();
             parcel.AddParcelRecievedDate();
             parcel.NextState();
             Console.WriteLine();
@@ -84,6 +84,28 @@ namespace PostalService.Models.PostalCheckPoints
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
+        public void PickUpParcel(Parcel parcel)
+        {
+            string IdCheck = "";
+            Console.WriteLine("Har du legitimation?");
+            Console.WriteLine("1. ja");
+            Console.WriteLine("2. nej");
+            IdCheck=Console.ReadLine();
+
+            switch(IdCheck)
+            {
+                case "1":
+                    registry.FindParcelById(parcel.Id); 
+                    break;
+                case "2":
+                    Console.WriteLine("Då kan vi inte lämna ut");
+                    break;
+                    
+            }
+            
+        }
+      
+
 
         //Vilka detaljer vill vi skriva ut 
         public void ViewServicePointOutgoingParcels()
@@ -119,5 +141,5 @@ namespace PostalService.Models.PostalCheckPoints
 
 
 
-        //}
+        }
     }

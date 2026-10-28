@@ -9,14 +9,14 @@ namespace PostalService.Models.PostalCheckPoints
 {
     public class Transport
     {
-        public string TransportName { get; }
+        //public string TransportName { get; }
         //public string Location { get; private set; } // Under transport, på väg mot 
         public int Count => TransportQueue.Count;
-        public Transport(string transportName)
-        {
-            TransportName = transportName;
+        //public Transport(string transportName)
+        //{
+        //    TransportName = transportName;
            
-        }
+        //}
         //ändra string till paketobjekt
         private readonly Queue<Parcel> TransportQueue = new();
 
@@ -53,7 +53,7 @@ namespace PostalService.Models.PostalCheckPoints
         {
             if (TransportQueue.Count == 0)
             {
-                Console.WriteLine($"{TransportName} är tom.");
+                //Console.WriteLine($"{TransportName} är tom.");
                 return;
             }
             foreach (var parcel in TransportQueue)

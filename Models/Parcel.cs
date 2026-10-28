@@ -18,9 +18,9 @@ namespace PostalService.Models
         //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
         //public string? Location => Status.Location;
 
-        public int Priority { get; }
+        public int Priority => ShippingStrategy.Priority;
         public DateTime? ParcelRecievedDate { get; private set; }
-        public int? Destination { get; private set; }
+        //public int? Destination { get; private set; }
        
 
         public Customer Sender { get; private set; }
@@ -100,10 +100,10 @@ namespace PostalService.Models
             ParcelRecievedDate = DateTime.Now;
         }
 
-        public void AddParcelDestination()
-        { 
-            Destination = Destination;
-        }
+        //public void AddParcelDestination()
+        //{ 
+        //    Destination = Destination;
+        //}
         
     }
 }
