@@ -10,8 +10,10 @@ namespace PostalService.Models
             //Parcel parcel = new Parcel(1, 150m);
             //Console.WriteLine(parcel);
 
-            DemoClass.Run();
-           
+            //DemoClass.Run();
+            ConsoleMenu menu = new ConsoleMenu();
+            menu.Menu();
+
         }
 
     }

@@ -10,24 +10,25 @@ namespace PostalService.Models
 {
     public class ConsoleMenu
     {
-        public void Menu(){
+        private readonly ParcelRegistry registry = new ParcelRegistry();
+
+        public void Menu()
+        {
             bool loopMenu = true;
-            var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
+            //var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
             Parcel parcel;
 
-            ParcelCreator createNewParcel= new ParcelCreator();
+            ParcelCreator createNewParcel = new ParcelCreator();
             while (loopMenu)
             {
 
                 Console.WriteLine("*******************************");
                 Console.WriteLine("   Paketleverans och spårning  ");
                 Console.WriteLine("*******************************");
-                Console.WriteLine("1. Registrera paket och ta emot");
-                Console.WriteLine("2. Spåra paket med försendelse-id");
+                Console.WriteLine("1. Registrera paket");
+                Console.WriteLine("2. Spåra paket med försändelse-id");
                 Console.WriteLine("3. Logga in som administratör");
-                Console.WriteLine("4.Ta emot paket vid Ombud Borlänge");
-                Console.WriteLine("5. Visa paket vid Ombud Borlänge");
-                Console.WriteLine("5. Avsluta");
+                Console.WriteLine("4. Avsluta");
                 Console.Write("Gör ett val mellan 1-4: ");
 
                 string userInputFromMenu = Console.ReadLine();
@@ -36,17 +37,15 @@ namespace PostalService.Models
                 switch (userInputFromMenu)
                 {
                     case "1":
-                        //Lägg in objekt från createparcel
-                        Console.WriteLine("Du har valt 1");
-                        createNewParcel.CreateParcel();
-                        
                         parcel = createNewParcel.ConfirmCreatedParcel();
-                        ombudLudvika.RecieveRegisteredParcel(parcel);
+                        int id = registry.AddParcel(parcel);
+                        Console.WriteLine($"Ditt försändelse-id är {id}.");
                         break;
+
                     case "2":
                         //Lägg in metod från ParcelRegistry
                         //Console.WriteLine("Du har valt 2");
-                        ParcelRegistry registry = new ParcelRegistry();
+
                         Console.WriteLine("Sök på ett paket");
                         int parcelSearch = Int32.Parse(Console.ReadLine());
                         registry.FindParcelById(parcelSearch);
@@ -55,14 +54,16 @@ namespace PostalService.Models
                         loopMenu = false;
                         EscapeToMenu();
                         break;
-        
+
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
                         //i klassen kan man kalla på metod från ParcelRegistry som skriver ut alla paket dictionary. 
-                        Console.WriteLine("Du har valt 3");
+                        ConsoleMenuAdministrator admin = new ConsoleMenuAdministrator(registry);
+                        admin.MenuForAdministrator();
+
                         break;
                     case "4":
-                        ombudLudvika.ViewServicePointOutgoingParcels();
+                        //ombudLudvika.ViewServicePointOutgoingParcels();
                         break;
                     case "5":
                         Console.WriteLine("*************************");
@@ -73,7 +74,7 @@ namespace PostalService.Models
                         Environment.Exit(0);
                         break;
 
-                    
+
 
 
                     default:
@@ -85,7 +86,6 @@ namespace PostalService.Models
             }
         }
 
-        
         public void EscapeToMenu()
         {
             Console.WriteLine();

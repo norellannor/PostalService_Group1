@@ -16,8 +16,8 @@ namespace PostalService.Models
         public decimal Weight { get; private set; }
         public IWeightStrategy WeightStrategy { get; private set; }
         //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
-        public string? Location => Status.Location; 
-        
+        //public string? Location => Status.Location;
+
         public int Priority { get; }
         public DateTime? ParcelRecievedDate { get; private set; }
         public int? Destination { get; private set; }
@@ -37,11 +37,11 @@ namespace PostalService.Models
         
         
         public void NextState() => Status.NextState();
-        public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
+        //public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
 
 
 
-        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy, int priority =2)
+        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy )//int priority = 2
         {
             Weight = weight;
             Sender = sender;
@@ -49,7 +49,7 @@ namespace PostalService.Models
             ShippingStrategy = shippingStrategy;
             SentDate = DateTime.Today;
             WeightStrategy = SetWeightStrategy(weight);
-            Priority = priority;
+            //Priority = priority;
         }
 
 

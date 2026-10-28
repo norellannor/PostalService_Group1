@@ -26,11 +26,11 @@ namespace PostalService.Models
             Customer bengt = new Customer("Bengt Karlsson", new Address("Lingonvägen 3", "77130", "Ludvika"));
             Customer anna = new Customer("Anna Berg", new Address("Kungsgatan 20", "11122", "Stockholm"));
 
-            AddParcel(new Parcel(1.5m, erika, emelie, new StandardShipping(),2));   // 1001, lätt
-            AddParcel(new Parcel(8m, bengt, lisa, new ExpressShipping(),1));        // 1002, medel
-            AddParcel(new Parcel(22m, anna, erika, new EconomyShipping(),3));       // 1003, tung
-            AddParcel(new Parcel(0.5m, lisa, bengt, new ExpressShipping(),1));      // 1004, lätt
-            AddParcel(new Parcel(14m, emelie, anna, new StandardShipping(),2));     // 1005, medel
+            AddParcel(new Parcel(1.5m, erika, emelie, new StandardShipping()));   // 1001, lätt
+            AddParcel(new Parcel(8m, bengt, lisa, new ExpressShipping()));        // 1002, medel
+            AddParcel(new Parcel(22m, anna, erika, new EconomyShipping()));       // 1003, tung
+            AddParcel(new Parcel(0.5m, lisa, bengt, new ExpressShipping()));      // 1004, lätt
+            AddParcel(new Parcel(14m, emelie, anna, new StandardShipping()));     // 1005, medel
         }
         //Metod för att lägga till ett paket, samt generar en key, försändelseid
         public int AddParcel(Parcel parcel)
@@ -67,12 +67,18 @@ namespace PostalService.Models
 
             return null;
 
-        } 
+        }
 
         //Skapa en emetod för att kolla ett paket 
+        public void ShowAllParcels()
+        {
+            foreach (Parcel parcel in parcelsInSystem.Values)
+            {
+                Console.WriteLine($"{parcel.Id}: {parcel.Status.State.StateText}");
+            }
+        }
 
-        //För testning 
-        public IEnumerable<Parcel> GetAll() => parcelsInSystem.Values;
+
     }
 }
 

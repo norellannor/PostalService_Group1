@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,15 @@ using System.Threading.Tasks;
 namespace PostalService.Models
 {
     public class ConsoleMenuAdministrator
+
     {
+        private readonly ParcelRegistry registry;
+
+        public ConsoleMenuAdministrator(ParcelRegistry registry)
+        {
+            this.registry = registry;
+        }
+
         public void MenuForAdministrator()
         {
             ParcelCreator createNewParcelAdministrator = new ParcelCreator();
@@ -21,8 +30,8 @@ namespace PostalService.Models
                 Console.WriteLine("*******************************");
                 Console.WriteLine("1. Registrera paket");
                 Console.WriteLine("2. Spåra paket med försendelse-id");
-                Console.WriteLine("3. ");
-                Console.WriteLine("4. Avsluta");
+                Console.WriteLine("3. Resgisterar paket vid Sorteringsstationer");
+                Console.WriteLine("4. Avsluta programmet");
                 Console.Write("Gör ett val mellan 1-4: ");
 
                 string userInputFromMenu = Console.ReadLine();
@@ -37,10 +46,12 @@ namespace PostalService.Models
                     case "2":
                         //Lägg in metod från ParcelRegistry
                         Console.WriteLine("Du har valt 2");
+                        registry.ShowAllParcels();
                         break;
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
                         Console.WriteLine("Du har valt 3");
+                        ShipParcelNextStateMenu();
                         break;
                     case "4":
                         Console.WriteLine("*************************");
@@ -58,6 +69,26 @@ namespace PostalService.Models
                         break;
                 }
             }
+        }
+
+        public void ShipParcelNextStateMenu()
+        {
+            Console.Write("Ange försändelse-id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Parcel? parcel = registry.FindParcelById(id);
+            if (parcel == null)
+            {
+                Console.WriteLine("Paketet finns inte.");
+                return;
+            }
+
+            Console.WriteLine($"Nuvarande status: {parcel.Status.State.StateText}");
+            Console.WriteLine("1. Registrera nästa steg");
+            Console.WriteLine("2. Tillbaka");
+
+            if (Console.ReadLine() == "1")
+                parcel.NextState();
         }
     }
 }
