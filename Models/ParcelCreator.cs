@@ -35,7 +35,7 @@ namespace PostalService.Models
             string city = userInput.ReadString($"Ort för {role}:");
 
             Address address = new Address(streetName, postalCode, city);
-            return new Customer(name, address);
+            return new Customer(name, address, phoneNumber);
         }
 
         
