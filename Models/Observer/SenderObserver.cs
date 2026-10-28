@@ -1,6 +1,6 @@
 ﻿namespace PostalService.Models.Observer
 {
-    public class ParcelStatusUpdate : IObserver
+    public class SenderObserver : IObserver
     {
         //behöver kompletteras med vad som ska uppdateras 
         public void Update()

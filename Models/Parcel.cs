@@ -1,16 +1,18 @@
 ﻿using PostalService.Models.ShippingStrategy;
 using PostalService.Models.State;
 using PostalService.Models.WeightStrategy;
+using PostalService.Models.Observer;
 using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Numerics;
 using System.Text;
 using System.Xml.Linq;
 
 
 namespace PostalService.Models
 {
-    public class Parcel
+    public class Parcel : ISubject
     {
         public int Id { get; private set; }
         public decimal Weight { get; private set; }
@@ -32,10 +34,13 @@ namespace PostalService.Models
 
         public ParcelStatus Status { get; } = new ParcelStatus();
         //Paket mottaget vid ombud, behövs till tupeln. Börjar som null och sätts när mottagen
-        
 
-        
-        
+        //lista för observers
+        private readonly List<IObserver> _observers = new List<IObserver>();
+
+
+
+
         public void NextState() => Status.NextState();
         //public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
 
@@ -104,6 +109,35 @@ namespace PostalService.Models
         { 
             Destination = Destination;
         }
-        
+
+
+        // metoder för observer
+
+        public void registerObserver(IObserver observer)
+        {
+            if (!_observers.Contains(observer))
+            {
+                _observers.Add(observer);
+            }
+        }
+
+        public void removeObserver(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void NotifyObserver(string message)
+        {
+            foreach (IObserver observer in _observers)
+            {
+                observer.Update(message);
+            }
+        }
+
+        public void PizzaReady()
+        {
+            Notify("Din pizza är klar för upphämtning!");
+        }
+
     }
 }

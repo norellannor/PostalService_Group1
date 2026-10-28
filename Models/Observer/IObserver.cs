@@ -3,7 +3,8 @@
     public interface IObserver
     {
         //alla klasser som vill lyssna måste implementera detta
-        //i parantesen ska det som ska uppdateras in
-        void Update(); 
+        //i parantesen ska det som ska uppdateras in, vi vill uppdatera statusen på
+        //ett valt paket. 
+        void Update(string message); 
     }
 }
