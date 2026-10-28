@@ -7,7 +7,7 @@ namespace PostalService.Models.Observer
         public void Update(Parcel parcel)
         {
             // Om paketet är någonannanstans än vid ombud B så gör vi ingenting. 
-            if (parcel.Status.State is not OutForDeliveryState)
+            if (parcel.Status.State is not DeliveredState)
             {
                 return;
             }
