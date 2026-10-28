@@ -13,7 +13,7 @@ namespace PostalService.Models
         public Address Address { get; private set; }
 
 
-        public Customer(string name, Address address, string phoneNumber, string email = "")
+        public Customer(string name, Address address, string phoneNumber = "", string email = "")
         {
             Name = name;
             Email = email;

@@ -29,13 +29,13 @@ namespace PostalService.Models
         private Customer CreateCustomer(string role)
         {
             string name = userInput.ReadString($"Namn på {role}:");
-            string phoneNumber = userInput.ReadString($"Telefonnummer på {role}");
+            string phoneNumber = userInput.ReadString($"Telefonnummer på {role}:");
             string streetName = userInput.ReadString($"Gatuadress för {role}:");
             string postalCode = userInput.ReadString($"Postnummer för {role}:");
             string city = userInput.ReadString($"Ort för {role}:");
 
             Address address = new Address(streetName, postalCode, city);
-            return new Customer(name, address, phoneNumber);
+            return new Customer(name, address);
         }
 
         
