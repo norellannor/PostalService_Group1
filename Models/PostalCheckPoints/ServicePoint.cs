@@ -95,13 +95,22 @@ namespace PostalService.Models.PostalCheckPoints
             switch(IdCheck)
             {
                 case "1":
+                    if (parcel.Status.State is not DeliveredState)
+                    {
+                        Console.WriteLine("Paketet finns inte att hämta här.");
+                        break;
+                    }
                     RemoveDeliveredParcel(parcel.Id);
-                    parcel.NextState();
-
-
+                    parcel.NextState();   // → Completed
                     break;
+
+                    
                 case "2":
                     Console.WriteLine("Då kan vi inte lämna ut");
+                    break;
+
+                default:
+                    Console.WriteLine("Ogiltigt val");
                     break;
                     
             }

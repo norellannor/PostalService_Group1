@@ -59,6 +59,8 @@ namespace PostalService.Models
             var transport1 = new Transport();
             var transport2 = new Transport();
             var transport3 = new Transport();
+            
+            
 
 
             //ParcelRegistry registry = new ParcelRegistry();   // håller alla paket
@@ -105,8 +107,8 @@ namespace PostalService.Models
 
 
                 Console.WriteLine("Ombud Borlänge");
-                Console.WriteLine("10. Ta emot registrerade paket");
-                Console.WriteLine("11. Skicka vidare paketet");
+                Console.WriteLine("10. Ta emot paket");
+                Console.WriteLine("11. Uthämtning");
                 Console.WriteLine("12. Visa alla paket");
 
                 string userInputFromMenu = Console.ReadLine();
@@ -145,15 +147,15 @@ namespace PostalService.Models
                         transport3.DeliverParcels(ombudBorlange);
                         break;
                     case "11":
-                        Console.WriteLine("Finns inte än");
+                        ombudBorlange.PickUpParcel(parcel);
                         break;
                     case "12":
                         Console.WriteLine("Finns inte än");
                         break;
 
-                    default:
-                        Console.WriteLine("Ogiltigt val.");
-                        break;
+                        default:
+                            Console.WriteLine("Ogiltigt val.");
+                            break;
 
                 }
 

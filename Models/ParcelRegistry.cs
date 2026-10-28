@@ -78,13 +78,7 @@ namespace PostalService.Models
             }
         }
 
-
-        public void PickUpParcel()
-        {
-
-        }
-
-
+              
     }
 }
 
