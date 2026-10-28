@@ -8,8 +8,8 @@ namespace PostalService.Models.Observer
 {
     public interface ISubject
     {
-        void registerObserver(IObserver observer);
-        void removeObserver(IObserver observer);
-        void notifyObservers(Parcel parcel);
+        void RegisterObserver(IObserver observer);
+        void RemoveObserver(IObserver observer);
+        void NotifyObservers(Parcel parcel);
     }
 }

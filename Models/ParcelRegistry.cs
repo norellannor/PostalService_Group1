@@ -42,8 +42,8 @@ namespace PostalService.Models
             parcel.AssignId(id);
 
             parcelsInSystem.Add(id, parcel);
-            parcel.registerObserver(new SenderObserver());
-            parcel.registerObserver(new ReceiverObserver());
+            parcel.RegisterObserver(new SenderObserver());
+            parcel.RegisterObserver(new ReceiverObserver());
             return id;
         }
 

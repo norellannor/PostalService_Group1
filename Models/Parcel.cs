@@ -41,7 +41,13 @@ namespace PostalService.Models
 
 
 
-        public void NextState() => Status.NextState();
+        //public void NextState() => Status.NextState();
+        public void NextState()
+        {
+            Status.NextState();
+            NotifyObservers(this);
+
+        }
         //public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
 
 
@@ -113,7 +119,7 @@ namespace PostalService.Models
 
         // metoder för observer
         // registererar/lägger till observer i listan. 
-        public void registerObserver(IObserver observer)
+        public void RegisterObserver(IObserver observer)
         {
             if (!_observers.Contains(observer))
             {
@@ -122,13 +128,13 @@ namespace PostalService.Models
         }
 
         // tar bort observer från listan.
-        public void removeObserver(IObserver observer)
+        public void RemoveObserver(IObserver observer)
         {
             _observers.Remove(observer);
         }
 
         // notifierar observer. 
-        public void notifyObservers(Parcel parcel)
+        public void NotifyObservers(Parcel parcel)
         {
             foreach (IObserver observer in _observers)
             {
