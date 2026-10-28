@@ -22,7 +22,7 @@ namespace PostalService.Models.State
         {
             State.Handle(this);
 
-            Console.WriteLine(State.StateText);
+            //Console.WriteLine(State.StateText);  KOMMENTERAD BORT SÅ DET INTE BLIR DUBBELT 
         }
 
     }

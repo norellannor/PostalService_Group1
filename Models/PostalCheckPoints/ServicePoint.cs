@@ -70,7 +70,9 @@ namespace PostalService.Models.PostalCheckPoints
                 parcel.NextState();
 
             transport.AddParcelToTransport(parcel);
-            Console.WriteLine();
+            //Console.WriteLine($"Skickat: {parcel.Id}\n" +
+            //    $"{parcel.ShippingStrategy.ShippingType}(prio {parcel.Priority})\n" +
+            //    $"{parcel.Status.State.StateText}");
             return true;                               // väg 2: allt gick bra
         }
 

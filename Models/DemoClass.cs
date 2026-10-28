@@ -33,12 +33,21 @@ namespace PostalService.Models
             IShippingStrategy shippingStrategy = new StandardShipping();
             IShippingStrategy shippingStrategy2 = new ExpressShipping();
 
-            Parcel parcel = new Parcel(150m, sender, reciver, shippingStrategy);
+            //TESTPAKET 
+            Parcel economyParcel = new Parcel(5m, sender, reciver, new EconomyShipping());
+            Parcel standardParcel = new Parcel(3m, sender2, reciver2, new StandardShipping());
+            Parcel expressParcel = new Parcel(1m, sender, reciver2, new ExpressShipping());
+
+            //Parcel parcel = new Parcel(150m, sender, reciver, shippingStrategy);
             //Parcel parcel2 = new Parcel(1m, sender2, reciver2, shippingStrategy2);
 
+            //TEST LÄGGER TILL DE I DICTIONARY
 
             ParcelRegistry registry = new ParcelRegistry();
-            registry.AddParcel(parcel);
+            registry.AddParcel(economyParcel);    // 1006
+            registry.AddParcel(standardParcel);   // 1007
+            registry.AddParcel(expressParcel);    // 1008
+            //registry.AddParcel(parcel);
             //registry.AddParcel(parcel2);
 
 
@@ -115,7 +124,11 @@ namespace PostalService.Models
                 switch (userInputFromMenu)
                 {
                     case "1":
-                        ombudLudvika.RecieveRegisteredParcel(parcel);
+                        //ombudLudvika.RecieveRegisteredParcel(parcel);
+                        //TESTAR OLIKA PRIO
+                        ombudLudvika.RecieveRegisteredParcel(economyParcel);
+                        ombudLudvika.RecieveRegisteredParcel(standardParcel);
+                        ombudLudvika.RecieveRegisteredParcel(expressParcel);
                         break;
                     case "2":
                         ombudLudvika.LoadParcelFromServicePointToTransport(transport1);

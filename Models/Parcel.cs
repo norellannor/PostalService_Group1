@@ -45,6 +45,8 @@ namespace PostalService.Models
         public void NextState()
         {
             Status.NextState();
+            //Skriver ut vid alla stationer. 
+            Console.WriteLine($"{Id} \n Frakttyp:{ShippingStrategy.ShippingType} \n prio:{Priority} \n {Status.State.StateText}");
             NotifyObservers(this);
 
         }
@@ -99,6 +101,7 @@ namespace PostalService.Models
                    $"Avsändare: {Sender}, {Sender.Address}\n" +
                    $"Mottagare: {Receiver}, {Receiver.Address}\n" +
                    $"Frakt: {ShippingStrategy.ShippingType}\n" +
+                   $"Prioritet: {Priority}\n"+
                    $"kostnad:{GetTotalShippingPrice()}:-\n" +
                    $"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
 
