@@ -20,9 +20,9 @@ namespace PostalService.Models
         //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
         //public string? Location => Status.Location;
 
-        public int Priority { get; }
+        public int Priority => ShippingStrategy.Priority;
         public DateTime? ParcelRecievedDate { get; private set; }
-        public int? Destination { get; private set; }
+        //public int? Destination { get; private set; }
        
 
         public Customer Sender { get; private set; }
@@ -111,35 +111,10 @@ namespace PostalService.Models
             ParcelRecievedDate = DateTime.Now;
         }
 
-        public void AddParcelDestination()
-        { 
-            Destination = Destination;
-        }
-
-
-        // metoder för observer
-        // registererar/lägger till observer i listan. 
-        public void RegisterObserver(IObserver observer)
-        {
-            if (!_observers.Contains(observer))
-            {
-                _observers.Add(observer);
-            }
-        }
-
-        // tar bort observer från listan.
-        public void RemoveObserver(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        // notifierar observer. 
-        public void NotifyObservers(Parcel parcel)
-        {
-            foreach (IObserver observer in _observers)
-            {
-                observer.Update(parcel);
-            }
-        }
+        //public void AddParcelDestination()
+        //{ 
+        //    Destination = Destination;
+        //}
+        
     }
 }
