@@ -95,7 +95,10 @@ namespace PostalService.Models.PostalCheckPoints
             switch(IdCheck)
             {
                 case "1":
-                    registry.FindParcelById(parcel.Id); 
+                    RemoveDeliveredParcel(parcel.Id);
+                    parcel.NextState();
+
+
                     break;
                 case "2":
                     Console.WriteLine("Då kan vi inte lämna ut");
@@ -136,10 +139,24 @@ namespace PostalService.Models.PostalCheckPoints
             }
         }
 
+        public void RemoveDeliveredParcel(int parcelId)
+        {
+            if (ServicePointDeliveredParcelsDictionary.ContainsKey(parcelId))
+            {
+                ServicePointDeliveredParcelsDictionary.Remove(parcelId);
+                
 
-
-
-
+            }
+            else
+            {
+                Console.WriteLine("Paketet finns inte.");
+            }
 
         }
+
+
+
+
+
+    }
     }
