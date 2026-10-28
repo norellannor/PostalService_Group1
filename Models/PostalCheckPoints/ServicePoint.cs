@@ -84,39 +84,36 @@ namespace PostalService.Models.PostalCheckPoints
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
-        public void PickUpParcel(Parcel parcel)
+        public void PickUpParcel(int parcelId)
         {
-            string IdCheck = "";
-            Console.WriteLine("Har du legitimation?");
-            Console.WriteLine("1. ja");
-            Console.WriteLine("2. nej");
-            IdCheck=Console.ReadLine();
+            // Finns paketet här? Då hämtas det ur dictionaryn.
+            if (!ServicePointDeliveredParcelsDictionary.TryGetValue(parcelId, out Parcel? parcel))
+            {
+                Console.WriteLine("Det finns inget paket med det id:t att hämta här.");
+                return;
+            }
 
-            switch(IdCheck)
+            Console.WriteLine("Har du legitimation?");
+            Console.WriteLine("1. Ja");
+            Console.WriteLine("2. Nej");
+
+            string parcelIdInput=Console.ReadLine();
+
+            switch (parcelIdInput)
             {
                 case "1":
-                    if (parcel.Status.State is not DeliveredState)
-                    {
-                        Console.WriteLine("Paketet finns inte att hämta här.");
-                        break;
-                    }
-                    RemoveDeliveredParcel(parcel.Id);
+                    RemoveDeliveredParcel(parcelId);
                     parcel.NextState();   // → Completed
                     break;
-
-                    
                 case "2":
-                    Console.WriteLine("Då kan vi inte lämna ut");
+                    Console.WriteLine("Då kan vi inte lämna ut paketet.");
                     break;
-
                 default:
-                    Console.WriteLine("Ogiltigt val");
+                    Console.WriteLine("Ogiltigt val.");
                     break;
-                    
             }
-            
         }
-      
+
 
 
         //Vilka detaljer vill vi skriva ut 

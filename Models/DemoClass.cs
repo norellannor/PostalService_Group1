@@ -147,7 +147,15 @@ namespace PostalService.Models
                         transport3.DeliverParcels(ombudBorlange);
                         break;
                     case "11":
-                        ombudBorlange.PickUpParcel(parcel);
+                        Console.Write("Ange försändelse-id: ");
+                        if (int.TryParse(Console.ReadLine(), out int pickUpId))
+                        {
+                            ombudBorlange.PickUpParcel(pickUpId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Id:t måste vara en siffra.");
+                        }
                         break;
                     case "12":
                         Console.WriteLine("Finns inte än");
