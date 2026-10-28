@@ -174,7 +174,7 @@ namespace PostalService.Models
 
 
 
-            Console.WriteLine($"Paketet är registrerat \n {parcel}.");
+            //Console.WriteLine($"Paketet är registrerat \n {parcel}.");
 
 
             

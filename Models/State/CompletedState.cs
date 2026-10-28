@@ -2,9 +2,9 @@
 {
     public class CompletedState : IParcelState
     {
+        public string StateText => "[Hämtad] Paketet är hämtat.";
         public void Handle(ParcelStatus parcelStatus)
         {
-            Console.WriteLine($"[Hämtad] Paketet är hämtat.");
 
         }
 

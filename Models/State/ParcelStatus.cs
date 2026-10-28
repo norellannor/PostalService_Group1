@@ -12,9 +12,11 @@ namespace PostalService.Models.State
             State = new PendingState();
         }
 
-        public void NextState() => State.Handle(this);
+        //public void NextState() => State.Handle(this);
+        public void NextState() => Console.WriteLine(State.StateText);
 
         public void ChangeTo(string newLocation) => State.UpdateLocation(this, newLocation);
+
     }
 
 
