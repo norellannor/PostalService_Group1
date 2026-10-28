@@ -93,12 +93,18 @@ namespace PostalService.Models.PostalCheckPoints
         {
             //byter till DeliveredState
             parcel.NextState();
-            //parcel.UpdateParcelLocation(Location);
+            
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
-        public void PickUpParcel(Parcel parcel)
+        public void PickUpParcel(int parcelId)
         {
+            if (!ServicePointDeliveredParcelsDictionary.TryGetValue(parcelId, out Parcel? parcel))
+            {
+                Console.WriteLine("Det finns inget paket med det id:t att hämta här.");
+                return;
+            }
+
             string IdCheck = "";
             Console.WriteLine("Har du legitimation?");
             Console.WriteLine("1. ja");
