@@ -108,7 +108,7 @@ namespace PostalService.Models
 
                 Console.WriteLine("Ombud Borlänge");
                 Console.WriteLine("10. Ta emot paket");
-                Console.WriteLine("11. Uthämtning");
+                Console.WriteLine("11. Utlämning av paket");
                 Console.WriteLine("12. Visa alla paket");
 
                 string userInputFromMenu = Console.ReadLine();
