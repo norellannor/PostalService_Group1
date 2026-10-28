@@ -160,10 +160,10 @@ namespace PostalService.Models
 
 
             ombudLudvika.RecieveRegisteredParcel(parcel);
-            ombudLudvika.ViewServicePointOutgoingParcels();
+            //ombudLudvika.ViewServicePointOutgoingParcels();
 
             ombudLudvika.LoadParcelFromServicePointToTransport(transport1); //laddat paket till transport
-            transport1.ViewParcelsInTransport();
+            //transport1.ViewParcelsInTransport();
 
             terminalA.AddParcelTowardsDestinationB(transport1);
 
