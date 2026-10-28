@@ -10,6 +10,6 @@ namespace PostalService.Models.Observer
     {
         void registerObserver(IObserver observer);
         void removeObserver(IObserver observer);
-        void notifyObservers(string message);
+        void notifyObservers(Parcel parcel);
     }
 }

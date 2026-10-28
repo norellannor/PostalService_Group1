@@ -128,7 +128,7 @@ namespace PostalService.Models
         }
 
         // notifierar observer. 
-        public void NotifyObserver(Parcel parcel)
+        public void notifyObservers(Parcel parcel)
         {
             foreach (IObserver observer in _observers)
             {
