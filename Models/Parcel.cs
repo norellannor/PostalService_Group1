@@ -112,7 +112,7 @@ namespace PostalService.Models
 
 
         // metoder för observer
-
+        // registererar/lägger till observer i listan. 
         public void registerObserver(IObserver observer)
         {
             if (!_observers.Contains(observer))
@@ -121,11 +121,13 @@ namespace PostalService.Models
             }
         }
 
+        // tar bort observer från listan.
         public void removeObserver(IObserver observer)
         {
             _observers.Remove(observer);
         }
 
+        // notifierar observer. 
         public void NotifyObserver(string message)
         {
             foreach (IObserver observer in _observers)
@@ -134,7 +136,7 @@ namespace PostalService.Models
             }
         }
 
-        public void PizzaReady()
+        public void ParcelReady()
         {
             Notify("Din pizza är klar för upphämtning!");
         }

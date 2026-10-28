@@ -3,8 +3,9 @@
     public class SenderObserver : IObserver
     {
         //behöver kompletteras med vad som ska uppdateras 
-        public void Update()
+        public void Update(Parcel parcel)
         {
+           // if (parcel.Status.State)
             //if-sats om att status uppdateras när det ändras
             //get 
             //set, if (detNya == value) return; 

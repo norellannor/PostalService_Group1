@@ -1,11 +1,22 @@
-﻿namespace PostalService.Models.Observer
+﻿using PostalService.Models.State;
+
+namespace PostalService.Models.Observer
 {
     public class ReceiverObserver : IObserver
     {
-        //Om någon söker på paket så kommer meddelande. Vid en pull kommer det här meddelandet
-        public void Update(string message)
+        public void Update(Parcel parcel)
         {
-            Console.WriteLine($"Paketet finns vid ...");
+            // Om paketet är någonannanstans än vid ombud B så gör vi ingenting. 
+            if (parcel.Status.State is not OutForDeliveryState)
+            {
+                return;
+            }
+
+            // Hämta mottagaren från paketet
+            Customer receiver = parcel.Receiver;
+
+            // "Skicka" meddelandet
+            Console.WriteLine($"[SMS till {receiver.PhoneNumber}] Hej {receiver.Name}! " + $"Ditt paket {parcel.Id} är redo att hämtas på.");
         }
     }
 }
