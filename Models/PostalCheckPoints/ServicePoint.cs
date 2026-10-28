@@ -32,6 +32,19 @@ namespace PostalService.Models.PostalCheckPoints
 
         public bool RecieveRegisteredParcel(Parcel parcel)
         {
+
+            Console.Write("Ange försändelse-id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            registry.FindParcelById(id);
+            if (parcel == null)
+            {
+                Console.WriteLine("Paketet finns inte.");
+                
+                return false;
+            }
+
+            registry.FindParcelById(parcel.Id);
             if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
                 return false;                                      // bara registrerade paket tas emot
 
@@ -84,36 +97,30 @@ namespace PostalService.Models.PostalCheckPoints
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
         }
 
-        public void PickUpParcel(int parcelId)
+        public void PickUpParcel(Parcel parcel)
         {
-            // Finns paketet här? Då hämtas det ur dictionaryn.
-            if (!ServicePointDeliveredParcelsDictionary.TryGetValue(parcelId, out Parcel? parcel))
-            {
-                Console.WriteLine("Det finns inget paket med det id:t att hämta här.");
-                return;
-            }
-
+            string IdCheck = "";
             Console.WriteLine("Har du legitimation?");
-            Console.WriteLine("1. Ja");
-            Console.WriteLine("2. Nej");
+            Console.WriteLine("1. ja");
+            Console.WriteLine("2. nej");
+            IdCheck=Console.ReadLine();
 
-            string parcelIdInput=Console.ReadLine();
-
-            switch (parcelIdInput)
+            switch(IdCheck)
             {
                 case "1":
-                    RemoveDeliveredParcel(parcelId);
-                    parcel.NextState();   // → Completed
+                    RemoveDeliveredParcel(parcel.Id);
+                    parcel.NextState();
+
+
                     break;
                 case "2":
-                    Console.WriteLine("Då kan vi inte lämna ut paketet.");
+                    Console.WriteLine("Då kan vi inte lämna ut");
                     break;
-                default:
-                    Console.WriteLine("Ogiltigt val.");
-                    break;
+                    
             }
+            
         }
-
+      
 
 
         //Vilka detaljer vill vi skriva ut 
