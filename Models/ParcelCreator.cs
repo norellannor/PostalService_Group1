@@ -11,8 +11,7 @@ namespace PostalService.Models
 
         /*Metoden validerar de inputs som kommer från ex.
         RegisterParcel (där kunden får registrera sitt paket, det är här bara outputs och inputs.
-        
-         ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
+        ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
 
        
         private UserInput userInput = new UserInput();
@@ -23,8 +22,6 @@ namespace PostalService.Models
             Customer receiver = CreateCustomer("mottagaren");
             decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
             IShippingStrategy shipping = ChooseShippingStrategy();
-
-           
 
             return new Parcel(weight, sender, receiver, shipping);
         }
@@ -41,7 +38,6 @@ namespace PostalService.Models
         }
 
         
-
         private IShippingStrategy ChooseShippingStrategy()
         {
             while (true)
@@ -73,9 +69,7 @@ namespace PostalService.Models
 
         public Parcel ConfirmCreatedParcel()
         {
-
             Parcel parcel = CreateParcel();
-
 
             while (true)
             {
@@ -100,10 +94,7 @@ namespace PostalService.Models
                         break;
 
                 }
-
             }
-            
-           
         }
     }
 }

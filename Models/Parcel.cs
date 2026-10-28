@@ -128,18 +128,12 @@ namespace PostalService.Models
         }
 
         // notifierar observer. 
-        public void NotifyObserver(string message)
+        public void NotifyObserver(Parcel parcel)
         {
             foreach (IObserver observer in _observers)
             {
-                observer.Update(message);
+                observer.Update(parcel);
             }
         }
-
-        public void ParcelReady()
-        {
-            Notify("Din pizza är klar för upphämtning!");
-        }
-
     }
 }

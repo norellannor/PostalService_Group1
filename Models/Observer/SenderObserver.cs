@@ -1,16 +1,23 @@
-﻿namespace PostalService.Models.Observer
+﻿using PostalService.Models.State;
+
+namespace PostalService.Models.Observer
 {
     public class SenderObserver : IObserver
     {
         //behöver kompletteras med vad som ska uppdateras 
         public void Update(Parcel parcel)
         {
-           // if (parcel.Status.State)
-            //if-sats om att status uppdateras när det ändras
-            //get 
-            //set, if (detNya == value) return; 
-            //annars uppdatera nya status = value; 
-            
+            Customer sender = parcel.Sender;
+
+            if (parcel.Status.State is ParcelRecievedState)
+            {
+                Console.WriteLine($"[SMS till {sender.PhoneNumber}] Hej {sender.Name}! " + $"Ditt paket {parcel.Id} är inlämnat");
+            }
+            else if (parcel.Status.State is CompletedState)
+            {
+                Console.WriteLine($"[SMS till {sender.PhoneNumber}] Hej {sender.Name}! " + $"Ditt paket {parcel.Id} är levererat till mottagaren.");
+            }
+
         }
     }
 }

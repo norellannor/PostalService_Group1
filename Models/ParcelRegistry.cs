@@ -1,4 +1,5 @@
 ﻿using PostalService.Models.ShippingStrategy;
+using PostalService.Models.Observer;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
@@ -41,7 +42,8 @@ namespace PostalService.Models
             parcel.AssignId(id);
 
             parcelsInSystem.Add(id, parcel);
-
+            parcel.registerObserver(new SenderObserver());
+            parcel.registerObserver(new ReceiverObserver());
             return id;
         }
 
