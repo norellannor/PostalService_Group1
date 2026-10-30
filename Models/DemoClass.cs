@@ -33,21 +33,12 @@ namespace PostalService.Models
             IShippingStrategy shippingStrategy = new StandardShipping();
             IShippingStrategy shippingStrategy2 = new ExpressShipping();
 
-            //TESTPAKET 
-            Parcel economyParcel = new Parcel(5m, sender, reciver, new EconomyShipping());
-            Parcel standardParcel = new Parcel(3m, sender2, reciver2, new StandardShipping());
-            Parcel expressParcel = new Parcel(1m, sender, reciver2, new ExpressShipping());
-
-            //Parcel parcel = new Parcel(150m, sender, reciver, shippingStrategy);
+            Parcel parcel = new Parcel(150m, sender, reciver, shippingStrategy);
             //Parcel parcel2 = new Parcel(1m, sender2, reciver2, shippingStrategy2);
 
-            //TEST LÄGGER TILL DE I DICTIONARY
 
             ParcelRegistry registry = new ParcelRegistry();
-            registry.AddParcel(economyParcel);    // 1006
-            registry.AddParcel(standardParcel);   // 1007
-            registry.AddParcel(expressParcel);    // 1008
-            //registry.AddParcel(parcel);
+            registry.AddParcel(parcel);
             //registry.AddParcel(parcel2);
 
 
@@ -117,18 +108,14 @@ namespace PostalService.Models
 
                 Console.WriteLine("Ombud Borlänge");
                 Console.WriteLine("10. Ta emot paket");
-                Console.WriteLine("11. Utlämning av paket");
+                Console.WriteLine("11. Uthämtning");
                 Console.WriteLine("12. Visa alla paket");
 
                 string userInputFromMenu = Console.ReadLine();
                 switch (userInputFromMenu)
                 {
                     case "1":
-                        //ombudLudvika.RecieveRegisteredParcel(parcel);
-                        //TESTAR OLIKA PRIO
-                        ombudLudvika.RecieveRegisteredParcel(economyParcel);
-                        ombudLudvika.RecieveRegisteredParcel(standardParcel);
-                        ombudLudvika.RecieveRegisteredParcel(expressParcel);
+                        ombudLudvika.RecieveRegisteredParcel(parcel);
                         break;
                     case "2":
                         ombudLudvika.LoadParcelFromServicePointToTransport(transport1);
@@ -163,6 +150,7 @@ namespace PostalService.Models
                         Console.Write("Ange försändelse-id: ");
                         if (int.TryParse(Console.ReadLine(), out int pickUpId))
                         {
+                            
                             ombudBorlange.PickUpParcel(pickUpId);
                         }
                         else
