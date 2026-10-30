@@ -31,13 +31,14 @@ namespace PostalService.Models
 
         private Customer CreateCustomer(string role)
         {
-            string name = userInput.ReadString($"Namn på {role}:");
-            string streetName = userInput.ReadString($"Gatuadress för {role}:");
-            string postalCode = userInput.ReadString($"Postnummer för {role}:");
-            string city = userInput.ReadString($"Ort för {role}:");
+            string name = userInput.ReadName($"Namn på {role}:");
+            string phoneNumber = userInput.ReadPhoneNumber($"Telefonnummer till {role}:");
+            string streetName = userInput.ReadTextWithMaxLength($"Gatuadress för {role}:", 60);
+            string postalCode = userInput.ReadPostalCode($"Postnummer för {role}:");
+            string city = userInput.ReadCity($"Ort för {role}:");
 
             Address address = new Address(streetName, postalCode, city);
-            return new Customer(name, address);
+            return new Customer(name, address, phoneNumber: phoneNumber);
         }
 
         
@@ -80,23 +81,23 @@ namespace PostalService.Models
             while (true)
             {
                 Console.WriteLine(parcel);
-                Console.WriteLine("Stämmer infon");
-                Console.WriteLine("1.Ja");
-                Console.WriteLine("2.Nej");
+                Console.WriteLine("Stämmer informationen?");
+                Console.WriteLine("Om ja tryck 1 och registrera");
+                Console.WriteLine("Om inte, tryck 2 och fyll i uppgifterna igen");
 
-                string choice = userInput.ReadString("Ditt val:");
+                string choice = userInput.ReadString("Ditt val (1 eller 2):");
 
                 switch (choice)
                 {
                     case "1":
                         return parcel;
                     case "2":
-                        Console.WriteLine("Skriv i uppgifterna igen");
+                        Console.WriteLine("Skriv in uppgifterna igen");
                         parcel = CreateParcel();
                         break;
 
                     default:
-                        Console.WriteLine("Ogiltigt val");
+                        Console.WriteLine("Felaktigt val. Du måste skriva 1 eller 2");
                         break;
 
                 }
