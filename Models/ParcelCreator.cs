@@ -11,7 +11,8 @@ namespace PostalService.Models
 
         /*Metoden validerar de inputs som kommer från ex.
         RegisterParcel (där kunden får registrera sitt paket, det är här bara outputs och inputs.
-        ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
+        
+         ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
 
        
         private UserInput userInput = new UserInput();
@@ -23,22 +24,25 @@ namespace PostalService.Models
             decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
             IShippingStrategy shipping = ChooseShippingStrategy();
 
+           
+
             return new Parcel(weight, sender, receiver, shipping);
         }
 
         private Customer CreateCustomer(string role)
         {
-            string name = userInput.ReadString($"Namn på {role}:");
-            string phoneNumber = userInput.ReadString($"Telefonnummer på {role}:");
-            string streetName = userInput.ReadString($"Gatuadress för {role}:");
-            string postalCode = userInput.ReadString($"Postnummer för {role}:");
-            string city = userInput.ReadString($"Ort för {role}:");
+            string name = userInput.ReadName($"Namn på {role}:");
+            string phoneNumber = userInput.ReadPhoneNumber($"Telefonnummer till {role}:");
+            string streetName = userInput.ReadTextWithMaxLength($"Gatuadress för {role}:", 60);
+            string postalCode = userInput.ReadPostalCode($"Postnummer för {role}:");
+            string city = userInput.ReadCity($"Ort för {role}:");
 
             Address address = new Address(streetName, postalCode, city);
-            return new Customer(name, address, phoneNumber);
+            return new Customer(name, address, phoneNumber: phoneNumber);
         }
 
         
+
         private IShippingStrategy ChooseShippingStrategy()
         {
             while (true)
@@ -70,32 +74,37 @@ namespace PostalService.Models
 
         public Parcel ConfirmCreatedParcel()
         {
+
             Parcel parcel = CreateParcel();
+
 
             while (true)
             {
                 Console.WriteLine(parcel);
-                Console.WriteLine("Stämmer infon");
-                Console.WriteLine("1.Ja");
-                Console.WriteLine("2.Nej");
+                Console.WriteLine("Stämmer informationen?");
+                Console.WriteLine("Om ja tryck 1 och registrera");
+                Console.WriteLine("Om inte, tryck 2 och fyll i uppgifterna igen");
 
-                string choice = userInput.ReadString("Ditt val:");
+                string choice = userInput.ReadString("Ditt val (1 eller 2):");
 
                 switch (choice)
                 {
                     case "1":
                         return parcel;
                     case "2":
-                        Console.WriteLine("Skriv i uppgifterna igen");
+                        Console.WriteLine("Skriv in uppgifterna igen");
                         parcel = CreateParcel();
                         break;
 
                     default:
-                        Console.WriteLine("Ogiltigt val");
+                        Console.WriteLine("Felaktigt val. Du måste skriva 1 eller 2");
                         break;
 
                 }
+
             }
+            
+           
         }
     }
 }

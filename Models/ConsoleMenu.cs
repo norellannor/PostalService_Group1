@@ -22,14 +22,15 @@ namespace PostalService.Models
             while (loopMenu)
             {
 
-                Console.WriteLine("*******************************");
-                Console.WriteLine("   Paketleverans och spårning  ");
-                Console.WriteLine("*******************************");
+                Console.WriteLine("========================================");
+                Console.WriteLine("             POSTAL SERVICE" );
+                Console.WriteLine("========================================");
                 Console.WriteLine("1. Registrera paket");
-                Console.WriteLine("2. Spåra paket med försändelse-id");
+                Console.WriteLine("2. Spåra paket med försändelse-ID");
                 Console.WriteLine("3. Logga in som administratör");
                 Console.WriteLine("4. Avsluta");
-                Console.Write("Gör ett val mellan 1-4: ");
+                Console.WriteLine("========================================");
+                Console.Write("Välj ett alternativ: ");
 
                 string userInputFromMenu = Console.ReadLine();
                 Console.Clear();
@@ -45,16 +46,27 @@ namespace PostalService.Models
                     case "2":
                         //Lägg in metod från ParcelRegistry
                         //Console.WriteLine("Du har valt 2");
-
                         Console.WriteLine("Sök på ett paket");
-                        int parcelSearch = Int32.Parse(Console.ReadLine());
-                        registry.FindParcelById(parcelSearch);
-                        Console.WriteLine(registry.FindParcelById(parcelSearch));
+                        Console.WriteLine("Ange försändelse-ID: ");
 
-                        loopMenu = false;
+                        int parcelSearch = Int32.Parse(Console.ReadLine());
+
+                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+
+                        if (foundparcel != null)
+                        {
+                            Console.WriteLine($"Paket hittat: {foundparcel}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Paketet finns inte.");
+                        }
+
                         EscapeToMenu();
                         break;
-
+                        
+                    
+                    
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
                         //i klassen kan man kalla på metod från ParcelRegistry som skriver ut alla paket dictionary. 
@@ -64,8 +76,6 @@ namespace PostalService.Models
                         break;
                     case "4":
                         //ombudLudvika.ViewServicePointOutgoingParcels();
-                        break;
-                    case "5":
                         Console.WriteLine("*************************");
                         Console.WriteLine("*                       *");
                         Console.WriteLine("*  Programmet avslutas  *");
