@@ -44,9 +44,28 @@ namespace PostalService.Models
                         createNewParcelAdministrator.CreateParcel();
                         break;
                     case "2":
+                        ////Lägg in metod från ParcelRegistry
+                        //Console.WriteLine("Du har valt 2");
+                        //registry.ShowAllParcels();
+                        //break;
+
                         //Lägg in metod från ParcelRegistry
-                        Console.WriteLine("Du har valt 2");
-                        registry.ShowAllParcels();
+                        //Console.WriteLine("Du har valt 2");
+                        Console.WriteLine("Sök på ett paket");
+                        Console.WriteLine("Ange försändelse-ID: ");
+
+                        int parcelSearch = Int32.Parse(Console.ReadLine());
+
+                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+
+                        if (foundparcel != null)
+                        {
+                            Console.WriteLine($"Paket hittat: {foundparcel}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Paketet finns inte.");
+                        }
                         break;
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
