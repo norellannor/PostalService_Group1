@@ -14,7 +14,8 @@ namespace PostalService.Models.ShippingStrategy
         public int Priority => 1;
 
         public decimal BasePrice => 99m;
+        public int DeliveryDays => 2;
 
-        public DateTime CalculateEstimatedDeliveryDate(DateTime sentDate) => sentDate.AddDays(2);
+        public DateTime CalculateEstimatedDeliveryDate(DateTime sentDate) => sentDate.AddDays(DeliveryDays);
     }
 }

@@ -93,10 +93,12 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void ReceiveDeliveredParcel(Parcel parcel)
         {
+            parcel.SetParcelDeliveredDate();
             //byter till DeliveredState
             parcel.NextState();
             
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
+            parcel.IsParcelDelayed();
         }
 
         public void PickUpParcel(int parcelId)

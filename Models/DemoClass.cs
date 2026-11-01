@@ -26,7 +26,6 @@ namespace PostalService.Models
             Address addressSender2 = new Address("Lingonvägen", "77130", "Ludvika");
 
 
-
             Customer reciver2 = new Customer("Lisa Andersson", addressReciver2);
             Customer sender2 = new Customer(" Bengt Karlsson", addressSender2);
 
@@ -94,7 +93,6 @@ namespace PostalService.Models
 
             //TEST LÄGGER TILL DE I DICTIONARY
 
-            ParcelRegistry registry = new ParcelRegistry();
             registry.AddParcel(economyParcel);    // 1006
             registry.AddParcel(standardParcel);   // 1007
             registry.AddParcel(expressParcel);    // 1008

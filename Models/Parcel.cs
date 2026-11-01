@@ -22,9 +22,25 @@ namespace PostalService.Models
 
         public int Priority => ShippingStrategy.Priority;
         public DateTime? ParcelRecievedDate { get; private set; }
-        //public int? Destination { get; private set; }
-       
 
+        //Egenskap som sätter det beräknade leveransdatumet baserat på vilken frakttyp som valts. 
+        //Om paketet inte är inlämnat så är datumet null, inlämnat paket får inlämnat datum plus datum 
+        //enl. vald strategi/frakttyp. 
+        public DateTime? EstimatedDeliveryDate
+        {
+            get
+            {
+                if (ParcelRecievedDate == null)
+                {
+                    return null;
+                }
+
+                return ShippingStrategy.CalculateEstimatedDeliveryDate(ParcelRecievedDate.Value);
+            }
+        }
+        //public int? Destination { get; private set; }
+
+        public DateTime? DeliveredParcelDate { get; private set; }
         public Customer Sender { get; private set; }
         public Customer Receiver { get; private set; }
 
@@ -96,14 +112,27 @@ namespace PostalService.Models
 
         public override string ToString()
         {
+            string estimatedDeliveryDateText;
+
+            if (EstimatedDeliveryDate == null)
+            {
+                estimatedDeliveryDateText = $"Beräknad leverans är inom {ShippingStrategy.DeliveryDays} dagar från inlämning";
+            }
+            else
+            {
+                estimatedDeliveryDateText = $"Beräknad leverans: {EstimatedDeliveryDate}:d";
+            }
+
             return $"Försändelse-id: {Id}\n" +
                    $"Vikt: {Weight} kg\n" +
                    $"Avsändare: {Sender}, {Sender.Address}\n" +
                    $"Mottagare: {Receiver}, {Receiver.Address}\n" +
                    $"Frakt: {ShippingStrategy.ShippingType}\n" +
-                   $"Prioritet: {Priority}\n"+
-                   $"kostnad:{GetTotalShippingPrice()}:-\n" +
-                   $"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
+                   $"Prioritet: {Priority}\n" +
+                   $"Kostnad:{GetTotalShippingPrice()}:-\n" +
+                   //$"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
+                   //Beräknat leveransdatum borde vara inlämnat datum + de dagara som frakttypen säger. 
+                   estimatedDeliveryDateText;
 
         }
 
@@ -112,6 +141,26 @@ namespace PostalService.Models
         public void AddParcelRecievedDate()
         {
             ParcelRecievedDate = DateTime.Now;
+        }
+
+        public void SetParcelDeliveredDate()
+        {
+            DeliveredParcelDate = DateTime.Today;
+        }
+
+        //metod för att kontrollera om paketet kommer fram i tid. 
+        public bool IsParcelDelayed()
+        {
+            if (EstimatedDeliveryDate == null)
+            {
+                return false;
+            }
+            else if (EstimatedDeliveryDate.Value.Date < DeliveredParcelDate)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         //public void AddParcelDestination()
