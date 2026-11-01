@@ -123,7 +123,13 @@ namespace PostalService.Models
                 estimatedDeliveryDateText = $"Beräknad leverans: {EstimatedDeliveryDate:d}";
             }
 
+            string statusText = Status.State.StateText;
+
+            if (IsParcelDelayed())
+                statusText += "- FÖRSENAT";
+
             return $"Försändelse-id: {Id}\n" +
+                   $"Status: {statusText}" +
                    $"Vikt: {Weight} kg\n" +
                    $"Avsändare: {Sender}, {Sender.Address}\n" +
                    $"Mottagare: {Receiver}, {Receiver.Address}\n" +
@@ -133,6 +139,7 @@ namespace PostalService.Models
                    //$"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
                    //Beräknat leveransdatum borde vara inlämnat datum + de dagara som frakttypen säger. 
                    estimatedDeliveryDateText;
+
 
             //I denna metod kan vi lägga till vilken status paketet har eller om det bara ska synas om det är försenat 
 
