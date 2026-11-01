@@ -149,18 +149,25 @@ namespace PostalService.Models
         }
 
         //metod för att kontrollera om paketet kommer fram i tid. 
+        // Returnerar true om paketet är försenat. 
         public bool IsParcelDelayed()
         {
+            //Paketet är inte inlämnat och det finns inget paket som kan vara försenat. 
             if (EstimatedDeliveryDate == null)
             {
                 return false;
             }
-            else if (EstimatedDeliveryDate.Value.Date < DeliveredParcelDate)
+
+            DateTime estimated = EstimatedDeliveryDate.Value.Date;
+
+            // Paketet är levererat: jämför med dagen det kom fram
+            if (DeliveredParcelDate != null)
             {
-                return true;
+                return estimated < DeliveredParcelDate.Value.Date;
             }
 
-            return false;
+            // Paketet är på väg: jämför med idag
+            return estimated < DateTime.Today;
         }
 
         //public void AddParcelDestination()
