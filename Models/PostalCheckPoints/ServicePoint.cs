@@ -93,12 +93,13 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void ReceiveDeliveredParcel(Parcel parcel)
         {
+            //Sätter dagens datum till leveransdatum
+            // dvs. det datum paketet kommer fram till ombud B. 
             parcel.SetParcelDeliveredDate();
             //byter till DeliveredState
             parcel.NextState();
             
             ServicePointDeliveredParcelsDictionary[parcel.Id] = parcel;
-            parcel.IsParcelDelayed();
         }
 
         public void PickUpParcel(int parcelId)
