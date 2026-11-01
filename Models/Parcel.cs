@@ -70,7 +70,7 @@ namespace PostalService.Models
 
 
 
-        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy )//int priority = 2
+        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)//int priority = 2
         {
             Weight = weight;
             Sender = sender;
@@ -100,7 +100,7 @@ namespace PostalService.Models
             Id = id;
         }
 
-        
+
 
         public decimal GetTotalShippingPrice()
         {
@@ -120,7 +120,7 @@ namespace PostalService.Models
             }
             else
             {
-                estimatedDeliveryDateText = $"Beräknad leverans: {EstimatedDeliveryDate}:d";
+                estimatedDeliveryDateText = $"Beräknad leverans: {EstimatedDeliveryDate:d}";
             }
 
             return $"Försändelse-id: {Id}\n" +
@@ -134,10 +134,12 @@ namespace PostalService.Models
                    //Beräknat leveransdatum borde vara inlämnat datum + de dagara som frakttypen säger. 
                    estimatedDeliveryDateText;
 
+            //I denna metod kan vi lägga till vilken status paketet har eller om det bara ska synas om det är försenat 
+
         }
 
         //Tar in paketets inlämningsdatum 
-        
+
         public void AddParcelRecievedDate()
         {
             ParcelRecievedDate = DateTime.Now;
