@@ -17,22 +17,15 @@ namespace PostalService.Models.PostalCheckPoints
         }
 
 
-        //Kö för Paket som är påväg mot plats B. There...
         private readonly PriorityQueue<Parcel, (int, DateTime)> ParcelStationPriorityQueueTowardsDestinationB = new();
 
-        //...and back again. Kö för Paket som är påväg mot plats A.Retur
-        //private readonly PriorityQueue<Parcel, (int, DateTime)> ParcelStationPriorityQueueTowardsDestinationA = new();
-
-        //Mot B - there...
         public bool AddParcelTowardsDestinationB(Transport transport)
         {
-            var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
+            var parcel = transport.RemoveParcelFromTransport();   
             if (parcel is null)
-                return false;                                     // transporten var tom
+                return false;                                     
 
            
-            //Console.WriteLine("Paket är mottaget vid station");
-            //SortedAtStationA
             ParcelStationPriorityQueueTowardsDestinationB.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
             parcel.UpdateParcelLocation(Location);
             parcel.NextState();
@@ -40,46 +33,19 @@ namespace PostalService.Models.PostalCheckPoints
 
         }
 
-        //mot A - retur (...and back again)
-        //public bool AddParcelTowardsDestinationA(Transport transport)
-        //{
-        //    var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
-        //    if (parcel is null)
-        //        return false;                                     // transporten var tom
-
-        //    parcel.UpdateParcelLocation(Location);                
-
-        //    ParcelStationPriorityQueueTowardsDestinationA.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
-        //    return true;
-
-        //}
-
-
-        //There...
+        
         public bool LoadParcelFromParcelStationToTransportTowardsDestinationB(Transport transport)
         {
             if (!ParcelStationPriorityQueueTowardsDestinationB.TryDequeue(out var parcel, out _))
-                return false;                          // väg 1: kön är tom
+                return false;                          
 
-            //Console.WriteLine("Påväg mot nästa plats");
+            
             transport.AddParcelToTransport(parcel);
             parcel.UpdateParcelLocation(Location);
-            //Intransportstate
             parcel.NextState();
-            return true;                               // väg 2: allt gick bra
+            return true;                              
         }
 
-        //...and back again
-        //public bool LoadParcelFromParcelStationToTransportTowardsDestinationA(Transport transport)
-        //{
-        //    if (!ParcelStationPriorityQueueTowardsDestinationA.TryDequeue(out var parcel, out _))
-        //        return false;
-
-        //    transport.AddParcelToTransport(parcel);
-        //    return true;
-        //}
-
-        // Tittar på alla paket som finns i terminalen påväg mot plats B
         public void ViewParcelsGoingToDestinationB()
         {
             if (ParcelStationPriorityQueueTowardsDestinationB.Count == 0)
@@ -94,21 +60,7 @@ namespace PostalService.Models.PostalCheckPoints
                 Console.WriteLine();
             }
         }
-        //Tittar på alla paket i kön mot plats A. Retur 
-        //public void ViewParcelsGoingToDestinationA()
-        //{
-        //    if (ParcelStationPriorityQueueTowardsDestinationA.Count == 0)
-        //    {
-        //        Console.WriteLine($"Finns inga paket här som ska till Ludvika.");
-        //        Console.WriteLine();
-        //        return;
-        //    }
-        //    foreach (var item in ParcelStationPriorityQueueTowardsDestinationA.UnorderedItems)
-        //    {
-        //        Console.WriteLine(item.Element);
-        //        Console.WriteLine();
-        //    }
-        //}
+        
 
     }
 }

@@ -28,11 +28,11 @@ namespace PostalService.Models.PostalCheckPoints
         {
             if (TransportQueue.TryDequeue(out var parcel))
             {
-                return parcel;   // det fanns ett paket
+                return parcel;   
             }
             else
             {
-                return null;     // kön var tom
+                return null;     
             }
         }
 
@@ -45,25 +45,12 @@ namespace PostalService.Models.PostalCheckPoints
         }
 
 
-        //Vilka detaljer vill vi skriva ut 
-        public void ViewTransportParcels()
-        {
-            if (TransportQueue.Count == 0)
-            {
-                //Console.WriteLine($"{TransportName} är tom.");
-                return;
-            }
-            foreach (var parcel in TransportQueue)
-            {
-                Console.WriteLine($"{parcel}");
-                Console.WriteLine();
-            }
-        }
+        
         public void ViewParcelsInTransport()
         {
             if (TransportQueue.Count == 0)
             {
-                Console.WriteLine($"Finns inga paket i transporten");
+                Console.WriteLine($"Finns inga paket här.");
                 return;
             }
             foreach (var parcel in TransportQueue)
