@@ -9,7 +9,12 @@ namespace PostalService.Models.PostalCheckPoints
 {
     public class ParcelStation
     {
-        //public required string Location { get; init; }
+        public string Location { get; }
+
+        public ParcelStation(string location)
+        {
+            Location = location;
+        }
 
 
         //Kö för Paket som är påväg mot plats B. There...
@@ -25,10 +30,11 @@ namespace PostalService.Models.PostalCheckPoints
             if (parcel is null)
                 return false;                                     // transporten var tom
 
-            //parcel.UpdateParcelLocation(Location);
+           
             //Console.WriteLine("Paket är mottaget vid station");
             //SortedAtStationA
             ParcelStationPriorityQueueTowardsDestinationB.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate!.Value));
+            parcel.UpdateParcelLocation(Location);
             parcel.NextState();
             return true;
 
@@ -57,7 +63,8 @@ namespace PostalService.Models.PostalCheckPoints
 
             //Console.WriteLine("Påväg mot nästa plats");
             transport.AddParcelToTransport(parcel);
-           //Intransportstate
+            parcel.UpdateParcelLocation(Location);
+            //Intransportstate
             parcel.NextState();
             return true;                               // väg 2: allt gick bra
         }

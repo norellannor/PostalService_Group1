@@ -9,21 +9,18 @@ namespace PostalService.Models.PostalCheckPoints
 {
     public class Transport
     {
-        //public string TransportName { get; }
-        //public string Location { get; private set; } // Under transport, på väg mot 
+        public string Location { get; }
+
+        public Transport(string location)
+        {
+            Location = location;
+        }
         public int Count => TransportQueue.Count;
-        //public Transport(string transportName)
-        //{
-        //    TransportName = transportName;
-           
-        //}
-        //ändra string till paketobjekt
         private readonly Queue<Parcel> TransportQueue = new();
 
-        //lägg till objektet, fattas
         public void AddParcelToTransport(Parcel parcel)
         {
-            //parcel.UpdateParcelLocation($"{TransportName}: {Location}");
+            parcel.UpdateParcelLocation($"{Location}");
             TransportQueue.Enqueue(parcel);
         }
 

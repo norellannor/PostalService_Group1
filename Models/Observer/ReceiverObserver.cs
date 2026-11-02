@@ -18,7 +18,7 @@ namespace PostalService.Models.Observer
 
             // "Skicka" meddelande till mottagaren
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"[SMS till {receiver.PhoneNumber}] Hej {receiver.Name}! " + $"Ditt paket {parcel.Id} är redo att hämtas på.");
+            Console.WriteLine($"[SMS till {receiver.PhoneNumber}] Hej {receiver.Name}! " + $"Ditt paket {parcel.Id} är redo att hämtas vid {parcel.Location}.");
             Console.ResetColor();
             
         }

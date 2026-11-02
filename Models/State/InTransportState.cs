@@ -8,7 +8,7 @@ namespace PostalService.Models.State
 {
     public class InTransportState : IParcelState
     {
-        public string StateText => "[Under Transport] Paketet har lämnat sortering A";
+        public string StateText => "[Under Transport]";
 
         public void Handle(ParcelStatus parcelStatus)
         {

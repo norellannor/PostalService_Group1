@@ -9,26 +9,27 @@ namespace PostalService.Models.PostalCheckPoints
 {
     public class ServicePoint
     {
-        //Location måste sättas och kan inte ändras
-        //public required string Location { get; init; }
+        public string Location { get; }
 
         //returnerar hur många paket som finns i kön just nu
         public int Count => ServicePointQueue.Count;
 
-        //Priorityqueuen som finns för paket som ska iväg
         private readonly PriorityQueue<Parcel, (int, DateTime)> ServicePointQueue = new();
 
-        //Queue som finns för paket som är klara för att hämtas av mottagare
-        //Kom på att queue för att hämta ut inte var det smartaste
-        //private readonly Queue<Parcel> ServicePointDeliveredQueue = new();
         private readonly Dictionary<int, Parcel> ServicePointDeliveredParcelsDictionary = new();
 
-        //public int Destination { get; init; }
 
+       
+        private readonly ParcelRegistry registry;
 
-        ParcelRegistry registry = new ParcelRegistry();
+      
 
-        //lägga till paketobjekt i kön. 
+        public ServicePoint(string location, ParcelRegistry registry)
+        {
+            Location = location;
+            this.registry = registry;
+        }
+
 
         public bool RecieveRegisteredParcel()
         {
@@ -58,11 +59,11 @@ namespace PostalService.Models.PostalCheckPoints
 
             
             parcel.AddParcelRecievedDate();
+            parcel.UpdateParcelLocation(Location);
             parcel.NextState();
             Console.WriteLine("Paketet är mottaget.");
             Console.WriteLine();
-            // Registrerat och ändrar till nästa state
-            //parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här
+            
 
 
             ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate.Value));
@@ -73,32 +74,20 @@ namespace PostalService.Models.PostalCheckPoints
         public bool LoadParcelFromServicePointToTransport(Transport transport)
         {
             if (!ServicePointQueue.TryDequeue(out var parcel, out _))
-                return false;                          // väg 1: kön är tom
+            {
+                return false;
+            }
 
             if (parcel.Status.State is ParcelRecievedState)
-                parcel.NextState();
+            { 
+            parcel.UpdateParcelLocation(Location);
+            parcel.NextState(); 
+            }
 
             transport.AddParcelToTransport(parcel);
-            //Console.WriteLine($"Skickat: {parcel.Id}\n" +
-            //    $"{parcel.ShippingStrategy.ShippingType}(prio {parcel.Priority})\n" +
-            //    $"{parcel.Status.State.StateText}");
-            return true;                               // väg 2: allt gick bra
+            return true;                               
         }
 
-        //behövs metod för att ta emot från transport
-        //Queue, inte smart när man ska hämta ut 
-        //public bool LoadDeliveredParcelFromTransportToServicePoint(Transport transport)
-        //{
-        //    var parcel = transport.RemoveParcelFromTransport();   // paketet tas ur TransportQueue
-        //    if (parcel is null)
-        //        return false;                                     // transporten var tom
-
-        //    parcel.NextState();                                   // Från state Shipped till Delivered
-        //    parcel.UpdateParcelLocation(Location);                // platsen blir ombudet
-
-        //    ServicePointDeliveredQueue.Enqueue(parcel);
-        //    return true;
-        //}
 
         public void ReceiveDeliveredParcel(Parcel parcel)
         {
@@ -129,6 +118,7 @@ namespace PostalService.Models.PostalCheckPoints
             {
                 case "1":
                     RemoveDeliveredParcel(parcel.Id);
+                    parcel.UpdateParcelLocation(Location);
                     parcel.NextState();
 
 
@@ -142,8 +132,6 @@ namespace PostalService.Models.PostalCheckPoints
         }
       
 
-
-        //Vilka detaljer vill vi skriva ut 
         public void ViewServicePointOutgoingParcels()
         {
             if (ServicePointQueue.Count == 0)

@@ -15,7 +15,14 @@ namespace PostalService.Models
     public class ConsoleMenu
     {
         private readonly ParcelRegistry registry = new ParcelRegistry();
-        
+        private readonly ConsoleMenuAdministrator admin;
+
+        public ConsoleMenu()
+        {
+            registry = new ParcelRegistry();
+            admin = new ConsoleMenuAdministrator(registry);
+        }
+
 
 
         public void Menu()
@@ -76,8 +83,9 @@ namespace PostalService.Models
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
                         //i klassen kan man kalla på metod från ParcelRegistry som skriver ut alla paket dictionary. 
-                        ConsoleMenuAdministrator admin = new ConsoleMenuAdministrator(registry);
-                        admin.MenuForAdministrator();
+                        
+                        //admin.MenuForAdministrator();
+                        admin.GetConsoleAdimistratorMenu();
 
                         break;
                     case "4":

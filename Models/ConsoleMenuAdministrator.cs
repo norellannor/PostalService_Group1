@@ -12,19 +12,19 @@ namespace PostalService.Models
 
     {
         private readonly ParcelRegistry registry;
-        private static ServicePoint ombudA = new ServicePoint();
-        private static ServicePoint ombudB = new ServicePoint();
-        private static ParcelStation stationA = new ParcelStation();
-        private static ParcelStation stationB = new ParcelStation();
-        private static Transport transport1 = new Transport();
-        private static Transport transport2 = new Transport();
-        private static Transport transport3 = new Transport();
-
-
+        private readonly ServicePoint ombudA;
+        private readonly ServicePoint ombudB;
+        private static ParcelStation stationA = new ParcelStation("Station A");
+        private static ParcelStation stationB = new ParcelStation("Station B");
+        private static Transport transport1 = new Transport("Mot Station A");
+        private static Transport transport2 = new Transport("Mot Station B");
+        private static Transport transport3 = new Transport("Mot Ombud B");
 
         public ConsoleMenuAdministrator(ParcelRegistry registry)
         {
             this.registry = registry;
+            ombudA = new ServicePoint("Ombud A",registry);
+            ombudB = new ServicePoint("Ombud B",registry);
         }
 
         public void MenuForAdministrator()
@@ -122,85 +122,92 @@ namespace PostalService.Models
 
         public void GetConsoleAdimistratorMenu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("      POSTAL SERVICE ADMINSTRATÖR");
-            Console.WriteLine("========================================");
-            Console.WriteLine("1. Registrera paket");
-            Console.WriteLine("2. Spåra paket med försändelse-ID");
-            //Console.WriteLine("3. Visa registrerade paket ?");
-            Console.WriteLine("4. Avsluta");
-            Console.WriteLine("========================================");
-            Console.WriteLine();
-            Console.WriteLine(" Eller välj:");
-            Console.WriteLine();
-            Console.WriteLine("5. Ombud A");
-            Console.WriteLine("6. Station A");
-            Console.WriteLine("7. Station B");
-            Console.WriteLine("8. Ombud B");
-            Console.WriteLine();
-            Console.WriteLine("========================================");
-            Console.Write("Välj ett alternativ: ");
-
-            string adminChoice = Console.ReadLine();
-
-            switch (adminChoice)
+            bool adminMenuBool = true;
+            while (adminMenuBool)
             {
-                case "1":
-                    //metod för att registrera paket
-                    break;
+                Console.WriteLine("========================================");
+                Console.WriteLine("      POSTAL SERVICE ADMINSTRATÖR");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Registrera paket");
+                Console.WriteLine("2. Spåra paket med försändelse-ID");
+                //Console.WriteLine("3. Visa registrerade paket ?");
+                Console.WriteLine("4. Avsluta");
+                Console.WriteLine("========================================");
+                Console.WriteLine();
+                Console.WriteLine(" Eller välj:");
+                Console.WriteLine();
+                Console.WriteLine("5. Ombud A");
+                Console.WriteLine("6. Station A");
+                Console.WriteLine("7. Station B");
+                Console.WriteLine("8. Ombud B");
+                Console.WriteLine();
+                Console.WriteLine("========================================");
+                Console.Write("Välj ett alternativ: ");
 
-                case "2":
-                    //metod för att spåra paket 
-                    break;
+                string adminChoice = Console.ReadLine();
+
+                switch (adminChoice)
+                {
+                    case "1":
+                        //metod för att registrera paket
+                        break;
+
+                    case "2":
+                        //metod för att spåra paket 
+                        break;
 
 
-                case "3":
-                    //Visa alla paket i Dictionary?
-                    break;
+                    case "3":
+                        //Visa alla paket i Dictionary?
+                        break;
 
-                case "4":
-                    Console.WriteLine("========================================");
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Programmet kommer nu att avslutas.");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    Console.WriteLine("========================================");
-                    Environment.Exit(0);
+                    case "4":
+                        Console.WriteLine("========================================");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Programmet kommer nu att avslutas.");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        Console.WriteLine("========================================");
+                        Environment.Exit(0);
 
-                    break;
+                        break;
 
-                case "5":
-                    GetOmbudAMenu();
+                    case "5":
+                        Console.Clear();
+                        GetOmbudAMenu();
 
-                    break;
+                        break;
 
-                case "6":
-                    GetStationAMenu();
-                    break;
+                    case "6":
+                        Console.Clear();
+                        GetStationAMenu();
+                        break;
 
-                case "7":
-                    GetStationBMenu();
-                    break;
+                    case "7":
+                        Console.Clear();
+                        GetStationBMenu();
+                        break;
 
-                case "8":
-                    GetOmbudBMenu();
-                    break;
+                    case "8":
+                        Console.Clear();
+                        GetOmbudBMenu();
+                        break;
 
-                default:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Ogiltig input");
-                    Console.WriteLine();
-                    Console.WriteLine("Vännligen skriv enbart den specificerade siffran för det du vill göra. ");
-                    Console.WriteLine();
-                    Console.ResetColor();
-                    break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Ogiltig input");
+                        Console.WriteLine();
+                        Console.WriteLine("Vännligen skriv enbart den specificerade siffran för det du vill göra. ");
+                        Console.WriteLine();
+                        Console.ResetColor();
+                        break;
 
+
+                }
 
             }
-
-
 
         }
 

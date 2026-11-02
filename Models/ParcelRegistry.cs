@@ -76,7 +76,7 @@ namespace PostalService.Models
         {
             foreach (Parcel parcel in parcelsInSystem.Values)
             {
-                Console.WriteLine($"{parcel.Id}: {parcel.Status.State.StateText}");
+                Console.WriteLine($"{parcel.Id}: {parcel.Location} {parcel.Status.State.StateText}");
             }
         }
 

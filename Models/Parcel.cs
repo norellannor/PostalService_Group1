@@ -62,9 +62,10 @@ namespace PostalService.Models
             NotifyObservers(this);
 
         }
-        //public void UpdateParcelLocation(string newLocation) => Status.ChangeTo(newLocation);
-
-
+        public void UpdateParcelLocation(string newLocation)
+        {
+            Location = newLocation;
+        }
 
         public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)//int priority = 2
         {
