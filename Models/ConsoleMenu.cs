@@ -5,17 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PostalService.Models.PostalCheckPoints;
+using PostalService.Models;
+using System.Security.Cryptography.X509Certificates;
+
+
 
 namespace PostalService.Models
 {
     public class ConsoleMenu
     {
         private readonly ParcelRegistry registry = new ParcelRegistry();
+        
+
 
         public void Menu()
         {
             bool loopMenu = true;
-            //var ombudLudvika = new ServicePoint { Location = "Ombud Ludvika", Destination = 1 };
+            
             Parcel parcel;
 
             ParcelCreator createNewParcel = new ParcelCreator();
@@ -103,5 +109,12 @@ namespace PostalService.Models
             Console.ReadKey();
             Console.Clear();
         }
+
+        
+            
+
+        
+
+        
     }
 }

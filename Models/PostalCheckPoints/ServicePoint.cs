@@ -30,27 +30,36 @@ namespace PostalService.Models.PostalCheckPoints
 
         //lägga till paketobjekt i kön. 
 
-        public bool RecieveRegisteredParcel(Parcel parcel)
+        public bool RecieveRegisteredParcel()
         {
 
             Console.Write("Ange försändelse-id: ");
-            int id = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Ogiltigt id, ange en siffra.");
+                return false;
+            }
 
-            registry.FindParcelById(id);
+            Parcel parcel = registry.FindParcelById(id);
+
+            
             if (parcel == null)
             {
-                Console.WriteLine("Paketet finns inte.");
+                Console.WriteLine("Paketet finns inte registrerad.");
                 
                 return false;
             }
 
-            registry.FindParcelById(parcel.Id);
-            if (parcel.Status.State is not PendingState)              //eller jämföra med dictionary
-                return false;                                      // bara registrerade paket tas emot
+            if (parcel.Status.State is not PendingState)
+            {
+                Console.WriteLine("Paketet finns registrerat men kan ej tas emot. Kontakta kundsupport.");
+                return false;
+            }
 
-            //parcel.AddParcelDestination();
+            
             parcel.AddParcelRecievedDate();
             parcel.NextState();
+            Console.WriteLine("Paketet är mottaget.");
             Console.WriteLine();
             // Registrerat och ändrar till nästa state
             //parcel.UpdateParcelLocation(Location);      // tupelns ParcelRecievedDate sätts här

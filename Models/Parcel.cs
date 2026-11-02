@@ -18,7 +18,7 @@ namespace PostalService.Models
         public decimal Weight { get; private set; }
         public IWeightStrategy WeightStrategy { get; private set; }
         //strängen Location som uppdaterar sig beroende på vart vi är. Ska vara tom från början. 
-        //public string? Location => Status.Location;
+        public string? Location { get; private set; }
 
         public int Priority => ShippingStrategy.Priority;
         public DateTime? ParcelRecievedDate { get; private set; }
@@ -38,7 +38,6 @@ namespace PostalService.Models
                 return ShippingStrategy.CalculateEstimatedDeliveryDate(ParcelRecievedDate.Value);
             }
         }
-        //public int? Destination { get; private set; }
 
         // Egenskap för datumet då paketet är levererat men ännu inte mottaget av mottagare. 
         public DateTime? DeliveredParcelDate { get; private set; }
@@ -50,15 +49,11 @@ namespace PostalService.Models
         public DateTime SentDate { get; private set; }
 
         public ParcelStatus Status { get; } = new ParcelStatus();
-        //Paket mottaget vid ombud, behövs till tupeln. Börjar som null och sätts när mottagen
+        
 
         //lista för observers
         private readonly List<IObserver> _observers = new List<IObserver>();
 
-
-
-
-        //public void NextState() => Status.NextState();
         public void NextState()
         {
             Status.NextState();
@@ -110,7 +105,6 @@ namespace PostalService.Models
             return ShippingStrategy.BasePrice + WeightStrategy.CalculateWeightPrice(Weight);
 
         }
-
 
         public override string ToString()
         {
@@ -181,10 +175,6 @@ namespace PostalService.Models
             return estimated < DateTime.Today;
         }
 
-        //public void AddParcelDestination()
-        //{ 
-        //    Destination = Destination;
-        //}
 
 
         // metoder för observer
