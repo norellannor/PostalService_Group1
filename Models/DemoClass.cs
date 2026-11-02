@@ -129,7 +129,7 @@ namespace PostalService.Models
                 switch (userInputFromMenu)
                 {
                     case "1":
-                        ombudLudvika.RecieveRegisteredParcel(parcel);
+                        ombudLudvika.RecieveRegisteredParcel(expressParcel);
                         break;
                     case "2":
                         ombudLudvika.LoadParcelFromServicePointToTransport(transport1);

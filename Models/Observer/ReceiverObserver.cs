@@ -1,4 +1,5 @@
-﻿using PostalService.Models.State;
+﻿using Microsoft.VisualBasic;
+using PostalService.Models.State;
 
 namespace PostalService.Models.Observer
 {
@@ -6,7 +7,7 @@ namespace PostalService.Models.Observer
     {
         public void Update(Parcel parcel)
         {
-            // Om paketet är någonannanstans än vid ombud B så gör vi ingenting. 
+            // Om paketet är någon annanstans än vid ombud B så gör vi ingenting. 
             if (parcel.Status.State is not DeliveredState)
             {
                 return;
@@ -15,8 +16,11 @@ namespace PostalService.Models.Observer
             // Hämta mottagaren från paketet
             Customer receiver = parcel.Receiver;
 
-            // "Skicka" meddelandet
+            // "Skicka" meddelande till mottagaren
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"[SMS till {receiver.PhoneNumber}] Hej {receiver.Name}! " + $"Ditt paket {parcel.Id} är redo att hämtas på.");
+            Console.ResetColor();
+            
         }
     }
 }

@@ -23,9 +23,9 @@ namespace PostalService.Models
         public int Priority => ShippingStrategy.Priority;
         public DateTime? ParcelRecievedDate { get; private set; }
 
-        //Egenskap som sätter det beräknade leveransdatumet baserat på vilken frakttyp som valts. 
-        //Om paketet inte är inlämnat så är datumet null, inlämnat paket får inlämnat datum plus datum 
-        //enl. vald strategi/frakttyp. 
+        /*Egenskap som sätter det beräknade leveransdatumet baserat på vilken frakttyp som valts. 
+        Om paketet inte är inlämnat så är datumet null, inlämnat paket får inlämnat datum plus datum 
+        enl. vald strategi/frakttyp.*/ 
         public DateTime? EstimatedDeliveryDate
         {
             get
@@ -40,6 +40,7 @@ namespace PostalService.Models
         }
         //public int? Destination { get; private set; }
 
+        // Egenskap för datumet då paketet är levererat men ännu inte mottaget av mottagare. 
         public DateTime? DeliveredParcelDate { get; private set; }
         public Customer Sender { get; private set; }
         public Customer Receiver { get; private set; }
@@ -82,7 +83,8 @@ namespace PostalService.Models
         }
 
 
-        //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i. Detta ska validera vilken strategy som ska väljas.
+        //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i.
+        //Detta ska validera vilken strategy som ska väljas.
         public IWeightStrategy SetWeightStrategy(decimal weight)
         {
 
@@ -129,7 +131,7 @@ namespace PostalService.Models
                 statusText += "- FÖRSENAT";
 
             return $"Försändelse-id: {Id}\n" +
-                   $"Status: {statusText}" +
+                   $"Status: {statusText}\n" +
                    $"Vikt: {Weight} kg\n" +
                    $"Avsändare: {Sender}, {Sender.Address}\n" +
                    $"Mottagare: {Receiver}, {Receiver.Address}\n" +
@@ -146,19 +148,19 @@ namespace PostalService.Models
         }
 
         //Tar in paketets inlämningsdatum 
-
         public void AddParcelRecievedDate()
         {
-            ParcelRecievedDate = DateTime.Now;
+            ParcelRecievedDate = DateTime.Now.Date;
         }
 
+        //Sätter datumet då paketet är levererat på ombudB. 
         public void SetParcelDeliveredDate()
         {
             DeliveredParcelDate = DateTime.Today;
         }
 
-        //metod för att kontrollera om paketet kommer fram i tid. 
-        // Returnerar true om paketet är försenat. 
+        //Metod för att kontrollera om paketet kommer fram i tid. 
+        //Returnerar true om paketet är försenat. 
         public bool IsParcelDelayed()
         {
             //Paketet är inte inlämnat och det finns inget paket som kan vara försenat. 
@@ -183,6 +185,7 @@ namespace PostalService.Models
         //{ 
         //    Destination = Destination;
         //}
+
 
         // metoder för observer
         // registererar/lägger till observer i listan. 
