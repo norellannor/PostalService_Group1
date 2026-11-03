@@ -27,101 +27,11 @@ namespace PostalService.Models
             ombudB = new ServicePoint("Ombud B",registry);
         }
 
-        public void MenuForAdministrator()
-        {
-            ParcelCreator createNewParcelAdministrator = new ParcelCreator();
-            bool loopMenu = true;
-
-            while (loopMenu)
-            {
-
-                Console.WriteLine("*******************************");
-                Console.WriteLine(" Administrartörsregistreringar ");
-                Console.WriteLine("*******************************");
-                Console.WriteLine("1. Registrera paket");
-                Console.WriteLine("2. Spåra paket med försendelse-id");
-                Console.WriteLine("3. Resgisterar paket vid Sorteringsstationer");
-                Console.WriteLine("4. Avsluta programmet");
-                Console.Write("Gör ett val mellan 1-4: ");
-
-                string userInputFromMenu = Console.ReadLine();
-                Console.Clear();
-
-                switch (userInputFromMenu)
-                {
-                    case "1":
-                        //Lägg in objekt från createparcel
-                        createNewParcelAdministrator.CreateParcel();
-                        break;
-                    case "2":
-                        ////Lägg in metod från ParcelRegistry
-                        //Console.WriteLine("Du har valt 2");
-                        //registry.ShowAllParcels();
-                        //break;
-
-                        //Lägg in metod från ParcelRegistry
-                        //Console.WriteLine("Du har valt 2");
-                        Console.WriteLine("Sök på ett paket");
-                        Console.WriteLine("Ange försändelse-ID: ");
-
-                        int parcelSearch = Int32.Parse(Console.ReadLine());
-
-                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
-
-                        if (foundparcel != null)
-                        {
-                            Console.WriteLine($"Paket hittat: {foundparcel}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Paketet finns inte.");
-                        }
-                        break;
-                    case "3":
-                        //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
-                        Console.WriteLine("Du har valt 3");
-                        ShipParcelNextStateMenu();
-                        break;
-                    case "4":
-                        Console.WriteLine("*************************");
-                        Console.WriteLine("*                       *");
-                        Console.WriteLine("*  Programmet avslutas  *");
-                        Console.WriteLine("*                       *");
-                        Console.WriteLine("*************************");
-                        Environment.Exit(0);
-                        break;
-
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Gör ett val mellan 1-4");
-                        Console.ResetColor();
-                        break;
-                }
-            }
-        }
-
-        public void ShipParcelNextStateMenu()
-        {
-            Console.Write("Ange försändelse-id: ");
-            int id = int.Parse(Console.ReadLine());
-
-            Parcel? parcel = registry.FindParcelById(id);
-            if (parcel == null)
-            {
-                Console.WriteLine("Paketet finns inte.");
-                return;
-            }
-
-            Console.WriteLine($"Nuvarande status: {parcel.Status.State.StateText}");
-            Console.WriteLine("1. Registrera nästa steg");
-            Console.WriteLine("2. Tillbaka");
-
-            if (Console.ReadLine() == "1")
-                parcel.NextState();
-        }
-
         public void GetConsoleAdimistratorMenu()
         {
+            ParcelCreator createNewParcel = new ParcelCreator();
+            ParcelCreator createNewParcelAdministrator = new ParcelCreator();
+            Parcel parcel;
             bool adminMenuBool = true;
             while (adminMenuBool)
             {
@@ -150,15 +60,40 @@ namespace PostalService.Models
                 {
                     case "1":
                         //metod för att registrera paket
+                        parcel = createNewParcel.ConfirmCreatedParcel();
+                        int id = registry.AddParcel(parcel);
+                        Console.WriteLine($"Ditt försändelse-id är {id}.");
                         break;
 
                     case "2":
                         //metod för att spåra paket 
+                        Console.WriteLine("Sök på ett paket");
+                        Console.WriteLine("Ange försändelse-ID: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                        }
+
+
+                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+
+                        if (foundparcel != null)
+                        {
+                            Console.WriteLine($"Paket hittat: {foundparcel}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Paketet finns inte.");
+                        }
                         break;
 
 
                     case "3":
-                        //Visa alla paket i Dictionary?
+                        //Visa alla paket i Dictionary
+                        Console.Clear();
+                        registry.ShowAllParcels();
                         break;
 
                     case "4":

@@ -62,7 +62,12 @@ namespace PostalService.Models
                         Console.WriteLine("Sök på ett paket");
                         Console.WriteLine("Ange försändelse-ID: ");
 
-                        int parcelSearch = Int32.Parse(Console.ReadLine());
+                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                        }
+                        
 
                         Parcel? foundparcel = registry.FindParcelById(parcelSearch);
 
