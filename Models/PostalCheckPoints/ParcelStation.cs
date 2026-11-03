@@ -50,7 +50,7 @@ namespace PostalService.Models.PostalCheckPoints
         {
             if (ParcelStationPriorityQueueTowardsDestinationB.Count == 0)
             {
-                Console.WriteLine($"Finns inga utgående paket här som ska till Borlänge.");
+                Console.WriteLine($"Finns inga utgående paket här.");
                 Console.WriteLine();
                 return;
             }

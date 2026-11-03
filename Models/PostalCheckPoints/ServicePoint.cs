@@ -61,7 +61,6 @@ namespace PostalService.Models.PostalCheckPoints
             parcel.AddParcelRecievedDate();
             parcel.UpdateParcelLocation(Location);
             parcel.NextState();
-            Console.WriteLine("Paketet är mottaget.");
             Console.WriteLine();
             
 
@@ -94,6 +93,7 @@ namespace PostalService.Models.PostalCheckPoints
             //Sätter dagens datum till leveransdatum
             // dvs. det datum paketet kommer fram till ombud B. 
             parcel.SetParcelDeliveredDate();
+            parcel.UpdateParcelLocation(Location);
             //byter till DeliveredState
             parcel.NextState();
             

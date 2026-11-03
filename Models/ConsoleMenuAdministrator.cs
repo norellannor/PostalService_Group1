@@ -130,7 +130,7 @@ namespace PostalService.Models
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Registrera paket");
                 Console.WriteLine("2. Spåra paket med försändelse-ID");
-                //Console.WriteLine("3. Visa registrerade paket ?");
+                Console.WriteLine("3. Visa registrerade paket ?");
                 Console.WriteLine("4. Avsluta");
                 Console.WriteLine("========================================");
                 Console.WriteLine();
@@ -177,7 +177,6 @@ namespace PostalService.Models
                     case "5":
                         Console.Clear();
                         GetOmbudAMenu();
-
                         break;
 
                     case "6":
@@ -213,193 +212,214 @@ namespace PostalService.Models
 
         public void GetOmbudAMenu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("               OMBUD A");
-            Console.WriteLine("========================================");
-            Console.WriteLine("1. Ta emot registrerade paket");
-            Console.WriteLine("2. Skicka vidare paket");
-            Console.WriteLine("3. Visa alla paket");
-            Console.WriteLine("========================================");
+            bool ombudALoop = true; 
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Tryck Enter för att gå tillbaka");
-            Console.ResetColor();
-            Console.WriteLine("------------------------------");
+            while(ombudALoop)
+            { 
+                Console.WriteLine("========================================");
+                Console.WriteLine("               OMBUD A");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Ta emot registrerade paket");
+                Console.WriteLine("2. Skicka vidare paket");
+                Console.WriteLine("3. Visa alla paket");
+                Console.WriteLine("========================================");
 
-            string ombudAChoice = Console.ReadLine();
-            Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Tryck Enter för att gå tillbaka");
+                Console.ResetColor();
+                Console.WriteLine("------------------------------");
 
-            switch (ombudAChoice)
-            {
-                case "1":
-                    ombudA.RecieveRegisteredParcel();
-                    break;
+                string ombudAChoice = Console.ReadLine();
+                Console.Clear();
 
-                case "2":
-                    ombudA.LoadParcelFromServicePointToTransport(transport1);
-                    break;
+                    switch (ombudAChoice)
+                    {
+                        case "1":
+                            ombudA.RecieveRegisteredParcel();
+                            break;
 
-                case "3":
-                    ombudA.ViewServicePointOutgoingParcels();
-                    break;
+                        case "2":
+                            ombudA.LoadParcelFromServicePointToTransport(transport1);
+                            break;
 
-                case "":
-                    Console.Clear();
-                    return;
+                        case "3":
+                            ombudA.ViewServicePointOutgoingParcels();
+                            break;
 
-                default:
-                    Console.WriteLine("Ogiltig input. ");
-                    break;
+                        case "":
+                            Console.Clear();
+                            return;
+
+                        default:
+                            Console.WriteLine("Ogiltig input. ");
+                            break;
+
+                }
             }
         }
 
         public void GetOmbudBMenu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("               OMBUD B");
-            Console.WriteLine("========================================");
-            Console.WriteLine("1. Hämta ut levererat paket");
-            Console.WriteLine("2. Ta emot paket från transport");
-            Console.WriteLine("3. Visa alla paket");
-            Console.WriteLine("4. Visa paket från transport som kan tas emot");
-            Console.WriteLine("========================================");
+            bool ombudBLoop = true;
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Tryck Enter för att gå tillbaka");
-            Console.ResetColor();
-            Console.WriteLine("------------------------------");
+            while (ombudBLoop)
+            { 
+                Console.WriteLine("========================================");
+                Console.WriteLine("               OMBUD B");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Hämta ut levererat paket");
+                Console.WriteLine("2. Ta emot paket från transport");
+                Console.WriteLine("3. Visa alla paket");
+                Console.WriteLine("4. Visa paket från transport som kan tas emot");
+                Console.WriteLine("========================================");
 
-            string ombudAChoice = Console.ReadLine();
-            Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Tryck Enter för att gå tillbaka");
+                Console.ResetColor();
+                Console.WriteLine("------------------------------");
 
-            switch (ombudAChoice)
-            {
-                case "1":
-                    Console.Write("Ange försändelse-id: ");
-                    if (int.TryParse(Console.ReadLine(), out int pickUpId))
+                string ombudAChoice = Console.ReadLine();
+                Console.Clear();
+
+                    switch (ombudAChoice)
                     {
+                        case "1":
+                            Console.Write("Ange försändelse-id: ");
+                            if (int.TryParse(Console.ReadLine(), out int pickUpId))
+                            {
 
-                        ombudB.PickUpParcel(pickUpId);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Id:t måste vara en siffra.");
-                    }
-                    break;
+                                ombudB.PickUpParcel(pickUpId);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id:t måste vara en siffra.");
+                            }
+                            break;
 
-                case "2":
-                    transport3.DeliverParcels(ombudB);
-                    break;
+                        case "2":
+                            transport3.DeliverParcels(ombudB);
+                            break;
 
-                case "3":
-                    ombudB.ViewServicePointOutgoingParcels();
-                    break;
+                        case "3":
+                            ombudB.ViewServicePointOutgoingParcels();
+                            break;
 
-                case "4":
-                    transport3.ViewParcelsInTransport();
-                    break;
+                        case "4":
+                            transport3.ViewParcelsInTransport();
+                            break;
 
-                case "":
-                    Console.Clear();
-                    return;
+                        case "":
+                            Console.Clear();
+                            return;
 
-                default:
-                    Console.WriteLine("Ogiltig input. ");
-                    break;
+                        default:
+                            Console.WriteLine("Ogiltig input. ");
+                            break;
+                }
             }
         }
 
         public void GetStationAMenu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("               STATION A");
-            Console.WriteLine("========================================");
-            Console.WriteLine("1. Ta emot paket");
-            Console.WriteLine("2. Skicka vidare paket");
-            Console.WriteLine("3. Visa alla paket");
-            Console.WriteLine("4. Visa paket från transport som kan tas emot");
-            Console.WriteLine("========================================");
+            bool stationAloop = true;
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Tryck Enter för att gå tillbaka");
-            Console.ResetColor();
-            Console.WriteLine("------------------------------");
-
-            string ombudAChoice = Console.ReadLine();
-            Console.Clear();
-
-            switch (ombudAChoice)
+            while (stationAloop)
             {
-                case "1":
-                    stationA.AddParcelTowardsDestinationB(transport1);
-                    break;
+                Console.WriteLine("========================================");
+                Console.WriteLine("               STATION A");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Ta emot paket");
+                Console.WriteLine("2. Skicka vidare paket");
+                Console.WriteLine("3. Visa alla paket");
+                Console.WriteLine("4. Visa paket från transport som kan tas emot");
+                Console.WriteLine("========================================");
 
-                case "2":
-                    stationA.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport2);
-                    break;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Tryck Enter för att gå tillbaka");
+                Console.ResetColor();
+                Console.WriteLine("------------------------------");
 
-                case "3":
-                    stationA.ViewParcelsGoingToDestinationB();
-                    break;
+                string ombudAChoice = Console.ReadLine();
+                Console.Clear();
 
-                case "4":
-                    transport1.ViewParcelsInTransport();
-                    break;
+                switch (ombudAChoice)
+                {
+                    case "1":
+                        stationA.AddParcelTowardsDestinationB(transport1);
+                        break;
 
-                case "":
-                    Console.Clear();
-                    return;
+                    case "2":
+                        stationA.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport2);
+                        break;
 
-                default:
-                    Console.WriteLine("Ogiltig input. ");
-                    break;
+                    case "3":
+                        stationA.ViewParcelsGoingToDestinationB();
+                        break;
+
+                    case "4":
+                        transport1.ViewParcelsInTransport();
+                        break;
+
+                    case "":
+                        Console.Clear();
+                        return;
+
+                    default:
+                        Console.WriteLine("Ogiltig input. ");
+                        break;
+                }
             }
         }
 
         public void GetStationBMenu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("               STATION B");
-            Console.WriteLine("========================================");
-            Console.WriteLine("1. Ta emot paket");
-            Console.WriteLine("2. Skicka vidare paket");
-            Console.WriteLine("3. Visa alla paket");
-            Console.WriteLine("4. Visa paket från transport som kan tas emot");
-            Console.WriteLine("========================================");
+            bool stationBLoop = true;
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Tryck Enter för att gå tillbaka");
-            Console.ResetColor();
-            Console.WriteLine("------------------------------");
-
-            string ombudAChoice = Console.ReadLine();
-            Console.Clear();
-
-            switch (ombudAChoice)
+            while (stationBLoop)
             {
-                case "1":
-                    stationB.AddParcelTowardsDestinationB(transport2);
-                    break;
+                Console.WriteLine("========================================");
+                Console.WriteLine("               STATION B");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Ta emot paket");
+                Console.WriteLine("2. Skicka vidare paket");
+                Console.WriteLine("3. Visa alla paket");
+                Console.WriteLine("4. Visa paket från transport som kan tas emot");
+                Console.WriteLine("========================================");
 
-                case "2":
-                    stationB.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport3);
-                    break;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Tryck Enter för att gå tillbaka");
+                Console.ResetColor();
+                Console.WriteLine("------------------------------");
 
-                case "3":
-                    stationB.ViewParcelsGoingToDestinationB();
-                    break;
+                string ombudAChoice = Console.ReadLine();
+                Console.Clear();
 
-                case "4":
-                    transport2.ViewParcelsInTransport();
-                    break;
+                switch (ombudAChoice)
+                {
+                    case "1":
+                        stationB.AddParcelTowardsDestinationB(transport2);
+                        break;
 
-                case "":
-                    Console.Clear();
-                    return;
+                    case "2":
+                        stationB.LoadParcelFromParcelStationToTransportTowardsDestinationB(transport3);
+                        break;
 
-                default:
-                    Console.WriteLine("Ogiltig input. ");
-                    break;
+                    case "3":
+                        stationB.ViewParcelsGoingToDestinationB();
+                        break;
+
+                    case "4":
+                        transport2.ViewParcelsInTransport();
+                        break;
+
+                    case "":
+                        Console.Clear();
+                        return;
+
+                    default:
+                        Console.WriteLine("Ogiltig input. ");
+                        break;
+                }
             }
         }
 
