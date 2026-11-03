@@ -39,6 +39,12 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void DeliverParcels(ServicePoint servicePoint)
         {
+            if (TransportQueue.Count == 0)
+            {
+                Console.WriteLine("Finns inga paket att ta emot.");
+                return;
+            }
+
             while (TransportQueue.TryDequeue(out Parcel? parcel))
             {
                 servicePoint.ReceiveDeliveredParcel(parcel);

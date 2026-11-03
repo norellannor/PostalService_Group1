@@ -37,7 +37,12 @@ namespace PostalService.Models.PostalCheckPoints
         public bool LoadParcelFromParcelStationToTransportTowardsDestinationB(Transport transport)
         {
             if (!ParcelStationPriorityQueueTowardsDestinationB.TryDequeue(out var parcel, out _))
-                return false;                          
+
+            {
+                Console.WriteLine("Finns inga paket att skicka vidare.");
+                return false;
+            }
+            
 
             
             transport.AddParcelToTransport(parcel);
