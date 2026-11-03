@@ -57,6 +57,7 @@ namespace PostalService.Models
                 Console.Write("Välj ett alternativ: ");
 
                 string adminChoice = Console.ReadLine();
+                Console.Clear();
 
                 switch (adminChoice)
                 {
@@ -97,25 +98,19 @@ namespace PostalService.Models
 
                     case "3":
                         //Visa alla paket i Dictionary
-                        Console.Clear();
                         registry.ShowAllParcels();
                         break;
 
                     case "4":
-                        Console.WriteLine("========================================");
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Programmet kommer nu att avslutas.");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        Console.WriteLine("========================================");
+                        Console.WriteLine("*************************");
+                        Console.WriteLine("*                       *");
+                        Console.WriteLine("*  Programmet avslutas  *");
+                        Console.WriteLine("*                       *");
+                        Console.WriteLine("*************************");
                         Environment.Exit(0);
-
                         break;
 
                     case "5":
-                        Console.Clear();
                         GetOmbudAMenu();
                         break;
 
@@ -125,12 +120,10 @@ namespace PostalService.Models
                         break;
 
                     case "7":
-                        Console.Clear();
                         GetStationBMenu();
                         break;
 
                     case "8":
-                        Console.Clear();
                         GetOmbudBMenu();
                         break;
 
@@ -138,7 +131,7 @@ namespace PostalService.Models
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Ogiltig input");
                         Console.WriteLine();
-                        Console.WriteLine("Vännligen skriv enbart den specificerade siffran för det du vill göra. ");
+                        Console.WriteLine("Vänligen skriv enbart den specificerade siffran för det du vill göra. ");
                         Console.WriteLine();
                         Console.ResetColor();
                         break;

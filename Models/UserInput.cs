@@ -87,15 +87,15 @@ namespace PostalService.Models
             while (true)
             {
                 Console.WriteLine(question);
-                Console.WriteLine("Frivilligt - tryck Enter för att hoppa över.");
+                //Console.WriteLine("Frivilligt - tryck Enter för att hoppa över.");
 
                 string phoneNumber = Console.ReadLine()?.Trim() ?? "";
                 
-                // Telefonnummret är frivilligt.
-                if (string.IsNullOrEmpty(phoneNumber))
-                {
-                    return "";
-                }
+                //// Telefonnummret är frivilligt.
+                //if (string.IsNullOrEmpty(phoneNumber))
+                //{
+                //    return "";
+                //}
 
                 bool validCharacters = phoneNumber.All(c =>
                     char.IsDigit(c) || c == '+');

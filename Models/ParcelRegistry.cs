@@ -81,7 +81,7 @@ namespace PostalService.Models
 
         }
 
-        //Skapa en emetod för att kolla ett paket 
+        //Metod för att skriva ut alla paket i Dictionary.  
         public void ShowAllParcels()
         {
             foreach (Parcel parcel in parcelsInSystem.Values)

@@ -74,8 +74,7 @@ namespace PostalService.Models
             }
         }
 
-        //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i.
-        //Detta ska validera vilken strategy som ska väljas.
+        // Metod för att sätta viktstrategi utifrån inmatad vikt. 
         public IWeightStrategy SetWeightStrategy(decimal weight)
         {
             
