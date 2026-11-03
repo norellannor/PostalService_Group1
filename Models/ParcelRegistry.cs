@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using PostalService.Models.Observer;
 using PostalService.Models.ShippingStrategy;
+using PostalService.Models.WeightStrategy;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
@@ -28,11 +29,11 @@ namespace PostalService.Models
             Customer bengt = new Customer("Bengt Karlsson", new Address("Lingonvägen 3", "77130", "Ludvika"));
             Customer anna = new Customer("Anna Berg", new Address("Kungsgatan 20", "11122", "Stockholm"));
 
-            AddParcel(new Parcel(1.5, erika, emelie, new StandardShipping()));   // 1001, lätt
-            AddParcel(new Parcel(8, bengt, lisa, new ExpressShipping()));        // 1002, medel
-            AddParcel(new Parcel(22, anna, erika, new EconomyShipping()));       // 1003, tung
-            AddParcel(new Parcel(0.5, lisa, bengt, new ExpressShipping()));      // 1004, lätt
-            AddParcel(new Parcel(14, emelie, anna, new StandardShipping()));     // 1005, medel
+            AddParcel(new Parcel(1.5m, erika, emelie,new LightWeight(), new StandardShipping()));   // 1001, lätt
+            AddParcel(new Parcel(8m, bengt, lisa,new MediumWeight(), new ExpressShipping()));        // 1002, medel
+            AddParcel(new Parcel(22m, anna, erika, new HeavyWeight(), new EconomyShipping()));       // 1003, tung
+            AddParcel(new Parcel(0.5m, lisa, bengt, new LightWeight(), new ExpressShipping()));      // 1004, lätt
+            AddParcel(new Parcel(14m, emelie, anna, new MediumWeight(), new StandardShipping()));     // 1005, medel
         }
         //Metod för att lägga till ett paket, samt generar en key, försändelseid
         public int AddParcel(Parcel parcel)

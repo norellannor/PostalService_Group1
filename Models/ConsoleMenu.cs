@@ -57,22 +57,30 @@ namespace PostalService.Models
                         break;
 
                     case "2":
-                        //Lägg in metod från ParcelRegistry
-                        //Console.WriteLine("Du har valt 2");
-                        Console.WriteLine("Sök på ett paket");
-                        Console.WriteLine("Ange försändelse-ID: ");
-
-                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                        while (true)
                         {
-                            Console.Clear();
-                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                            //metod för att spåra paket 
+                            Console.WriteLine("Sök på ett paket");
+                            Console.WriteLine("Ange försändelse-ID: ");
+
+                            if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                                continue;
+                            }
+                            Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            if (foundparcel == null)
+                            {
+                                continue;
+                            }
+                            Console.WriteLine(foundparcel);
+
+                            EscapeToMenu();
+                            break;
                         }
-                         Parcel? foundparcel = registry.FindParcelById(parcelSearch);
-                                               
-                        EscapeToMenu();
+
                         break;
-                        
-                    
                     
                     case "3":
                         //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
