@@ -78,7 +78,7 @@ namespace PostalService.Models
 
 
                             //Användaren kan trycka på esc för att återgå till menyn.
-                            if (ReturnOnEscape())
+                            if (ReturnOnEscapeAdministrator())
                             {
                                 return;
                             }
@@ -97,12 +97,9 @@ namespace PostalService.Models
                             Console.WriteLine(foundparcel);
 
                             EscapeToMenuAdmin();
-                            break;
-                                             
+                            break;                    
                         }
-
                         break;
-
 
                     case "3":
                         //Visa alla paket i Dictionary
@@ -143,12 +140,8 @@ namespace PostalService.Models
                         Console.WriteLine();
                         Console.ResetColor();
                         break;
-
-
                 }
-
             }
-
         }
 
         public void GetOmbudAMenu()
@@ -374,7 +367,7 @@ namespace PostalService.Models
 
         //Ge användaren möjlighet att gå tillbaka till menyn genom att tryck på esc-knappen
         //ifall användaren inte har rätt data för att gå vidare. 
-        private bool ReturnOnEscape()
+        private bool ReturnOnEscapeAdministrator()
         {
             if ((Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
