@@ -1,5 +1,6 @@
-﻿using PostalService.Models.ShippingStrategy;
+﻿using Microsoft.Win32;
 using PostalService.Models.Observer;
+using PostalService.Models.ShippingStrategy;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
@@ -61,13 +62,21 @@ namespace PostalService.Models
 
         //Metoden tar in ett id, kollar om id finns och skickar ett värde(paket). 
         public Parcel? FindParcelById(int parcelId)
-        {
+        {   
+            
             if (parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel))
             {
                 return parcel;
             }
-
+            Console.WriteLine("Paketet finns inte.");
             return null;
+          
+          
+            //else
+            //{
+            //    Console.WriteLine("Paketet finns inte.");
+            //}
+            
 
         }
 

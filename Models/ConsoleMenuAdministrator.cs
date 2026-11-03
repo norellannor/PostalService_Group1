@@ -20,11 +20,13 @@ namespace PostalService.Models
         private static Transport transport2 = new Transport("Mot Station B");
         private static Transport transport3 = new Transport("Mot Ombud B");
 
+       
         public ConsoleMenuAdministrator(ParcelRegistry registry)
         {
             this.registry = registry;
             ombudA = new ServicePoint("Ombud A",registry);
             ombudB = new ServicePoint("Ombud B",registry);
+
         }
 
         public void GetConsoleAdimistratorMenu()
@@ -66,28 +68,32 @@ namespace PostalService.Models
                         break;
 
                     case "2":
-                        //metod för att spåra paket 
-                        Console.WriteLine("Sök på ett paket");
-                        Console.WriteLine("Ange försändelse-ID: ");
-
-                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                        while (true)
                         {
-                            Console.Clear();
-                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                            //metod för att spåra paket 
+                            Console.WriteLine("Sök på ett paket");
+                            Console.WriteLine("Ange försändelse-ID: ");
+
+                            if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                                continue;
+                            }
+                            Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            if (foundparcel == null)
+                            {
+                                continue;   
+                            }
+                            Console.WriteLine(foundparcel);
+                                                       
+                            break;
+                                             
                         }
 
-
-                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
-
-                        if (foundparcel != null)
-                        {
-                            Console.WriteLine($"Paket hittat: {foundparcel}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Paketet finns inte.");
-                        }
                         break;
+
+                        EscapeToMenuAdmin();
 
 
                     case "3":
@@ -356,6 +362,14 @@ namespace PostalService.Models
                         break;
                 }
             }
+        }
+
+        public void EscapeToMenuAdmin()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
     }

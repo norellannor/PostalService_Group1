@@ -67,19 +67,8 @@ namespace PostalService.Models
                             Console.Clear();
                             Console.WriteLine("Försändelse-ID kan bara vara siffror.");
                         }
-                        
-
-                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
-
-                        if (foundparcel != null)
-                        {
-                            Console.WriteLine($"Paket hittat: {foundparcel}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Paketet finns inte.");
-                        }
-
+                         Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                                               
                         EscapeToMenu();
                         break;
                         
