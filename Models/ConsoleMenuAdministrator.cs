@@ -104,6 +104,7 @@ namespace PostalService.Models
                     case "3":
                         //Visa alla paket i Dictionary
                         registry.ShowAllParcels();
+                        EscapeToMenuAdmin();
                         break;
 
                     case "4":
