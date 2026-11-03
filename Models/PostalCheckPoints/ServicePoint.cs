@@ -46,7 +46,7 @@ namespace PostalService.Models.PostalCheckPoints
             
             if (parcel == null)
             {
-                Console.WriteLine("Paketet finns inte registrerad.");
+                Console.WriteLine("Paketet finns inte registrerat.");
                 
                 return false;
             }
@@ -74,6 +74,7 @@ namespace PostalService.Models.PostalCheckPoints
         {
             if (!ServicePointQueue.TryDequeue(out var parcel, out _))
             {
+                Console.WriteLine("Finns inga paket att skicka.");
                 return false;
             }
 
@@ -90,6 +91,7 @@ namespace PostalService.Models.PostalCheckPoints
 
         public void ReceiveDeliveredParcel(Parcel parcel)
         {
+            
             //Sätter dagens datum till leveransdatum
             // dvs. det datum paketet kommer fram till ombud B. 
             parcel.SetParcelDeliveredDate();

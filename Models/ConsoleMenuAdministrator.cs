@@ -130,8 +130,8 @@ namespace PostalService.Models
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Registrera paket");
                 Console.WriteLine("2. Spåra paket med försändelse-ID");
-                Console.WriteLine("3. Visa registrerade paket ?");
-                Console.WriteLine("4. Avsluta");
+                Console.WriteLine("3. Visa alla paket i systemet");
+                Console.WriteLine("4. Avsluta programmet");
                 Console.WriteLine("========================================");
                 Console.WriteLine();
                 Console.WriteLine(" Eller välj:");

@@ -32,6 +32,7 @@ namespace PostalService.Models.PostalCheckPoints
             }
             else
             {
+                Console.WriteLine("Finns inga paket att ta emot.");
                 return null;     
             }
         }
