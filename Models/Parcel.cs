@@ -67,38 +67,36 @@ namespace PostalService.Models
             Location = newLocation;
         }
 
-        public Parcel(decimal weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)//int priority = 2
+        public Parcel(IWeightStrategy weight, Customer sender, Customer receiver, IShippingStrategy shippingStrategy)//int priority = 2
         {
-            Weight = weight;
+            //Weight = weight;
             Sender = sender;
             Receiver = receiver;
             ShippingStrategy = shippingStrategy;
             SentDate = DateTime.Today;
-            WeightStrategy = SetWeightStrategy(weight);
+            WeightStrategy = weight;
             //Priority = priority;
         }
 
 
         //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i.
         //Detta ska validera vilken strategy som ska väljas.
-        public IWeightStrategy SetWeightStrategy(decimal weight)
-        {
+        //public IWeightStrategy SetWeightStrategy(decimal weight)
+        //{
 
-            if (weight <= 2)
-                return new LightWeight();
-            else if (weight <= 15)
-                return new MediumWeight();
-            else
-                return new HeavyWeight();
-        }
+        //    if (weight <= 2)
+        //        return new LightWeight();
+        //    else if (weight <= 15)
+        //        return new MediumWeight();
+        //    else
+        //        return new HeavyWeight();
+        //}
 
         //Denna metod gör då att paketet känner till sitt Id som den får i ParcelRegistry.AddParcel()
         public void AssignId(int id)
         {
             Id = id;
         }
-
-
 
         public decimal GetTotalShippingPrice()
         {

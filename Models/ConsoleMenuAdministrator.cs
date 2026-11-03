@@ -86,14 +86,13 @@ namespace PostalService.Models
                                 continue;   
                             }
                             Console.WriteLine(foundparcel);
-                                                       
+
+                            EscapeToMenuAdmin();
                             break;
                                              
                         }
 
                         break;
-
-                        EscapeToMenuAdmin();
 
 
                     case "3":

@@ -1,4 +1,5 @@
 ﻿using PostalService.Models.ShippingStrategy;
+using PostalService.Models.WeightStrategy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,8 @@ namespace PostalService.Models
         {
             Customer sender = CreateCustomer("avsändaren");
             Customer receiver = CreateCustomer("mottagaren");
-            decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
+            //decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
+            IWeightStrategy weight = SetWeightStrategy();
             IShippingStrategy shipping = ChooseShippingStrategy();
 
            
@@ -70,6 +72,20 @@ namespace PostalService.Models
                         break;
                 }
             }
+        }
+
+        //Denna metod ska sedan vara i klassen som kunden skapar sitt paket i.
+        //Detta ska validera vilken strategy som ska väljas.
+        public IWeightStrategy SetWeightStrategy()
+        {
+            decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
+
+            if (weight <= 2)
+                return new LightWeight();
+            else if (weight <= 15)
+                return new MediumWeight();
+            else
+                return new HeavyWeight();
         }
 
         public Parcel ConfirmCreatedParcel()
