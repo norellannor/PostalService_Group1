@@ -8,7 +8,7 @@ namespace PostalService.Models.State
 {
     public class SortedAtStationBState : IParcelState
     {
-        public string StateText => "[Sorterat] Paketet är sorterat.";
+        public string StateText => "[Sorteras] Paketet är sorteras vid";
 
         public void Handle(ParcelStatus parcelStatus)
         {

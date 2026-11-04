@@ -60,6 +60,7 @@ namespace PostalService.Models
                 {
                     case "1":
                         //metod för att registrera paket
+                        Console.Clear();
                         parcel = createNewParcel.ConfirmCreatedParcel();
                         int id = registry.AddParcel(parcel);
                         Console.WriteLine($"Ditt försändelse-id är {id}.");
@@ -67,6 +68,7 @@ namespace PostalService.Models
 
                     case "2":
                         //metod för att spåra paket 
+                        Console.Clear();
                         Console.WriteLine("Sök på ett paket");
                         Console.WriteLine("Ange försändelse-ID: ");
 
