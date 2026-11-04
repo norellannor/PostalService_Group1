@@ -58,7 +58,7 @@ namespace PostalService.Models
         {
             Status.NextState();
             //Skriver ut vid alla stationer. 
-            Console.WriteLine($"{Id} \n Frakttyp:{ShippingStrategy.ShippingType} \n prio:{Priority} \n {Status.State.StateText}");
+            Console.WriteLine($"{Id} \n Frakttyp:{ShippingStrategy.ShippingType} \n prio:{Priority} \n {Status.State.StateText} {Location}");
             NotifyObservers(this);
 
         }
@@ -111,6 +111,7 @@ namespace PostalService.Models
 
             return $"Försändelse-id: {Id}\n" +
                    $"Status: {statusText}\n" +
+                   $"Plats: {Location}\n" +
                    $"Vikt: {Weight} kg\n" +
                    $"Avsändare: {Sender}, {Sender.Address}\n" +
                    $"Mottagare: {Receiver}, {Receiver.Address}\n" +
