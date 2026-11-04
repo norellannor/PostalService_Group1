@@ -20,11 +20,13 @@ namespace PostalService.Models
         private static Transport transport2 = new Transport("Mot Station B");
         private static Transport transport3 = new Transport("Mot Ombud B");
 
+       
         public ConsoleMenuAdministrator(ParcelRegistry registry)
         {
             this.registry = registry;
             ombudA = new ServicePoint("Ombud A",registry);
             ombudB = new ServicePoint("Ombud B",registry);
+
         }
 
         public void GetConsoleAdimistratorMenu()
@@ -55,6 +57,7 @@ namespace PostalService.Models
                 Console.Write("Välj ett alternativ: ");
 
                 string adminChoice = Console.ReadLine();
+                Console.Clear();
 
                 switch (adminChoice)
                 {
@@ -72,47 +75,49 @@ namespace PostalService.Models
                         Console.WriteLine("Sök på ett paket");
                         Console.WriteLine("Ange försändelse-ID: ");
 
-                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
-                        }
+                            string input = Console.ReadLine();
 
+                            //Användaren kan trycka på esc för att återgå till menyn.
+                            if (input == "")
+                            {
+                                Console.Clear();
+                                break;
+                            }
 
-                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            if (!int.TryParse(input, out int parcelSearch))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                                continue;
+                            }
+                            Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            if (foundparcel == null)
+                            {
+                                continue;   
+                            }
+                            Console.WriteLine(foundparcel);
 
-                        if (foundparcel != null)
-                        {
-                            Console.WriteLine($"Paket hittat: {foundparcel}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Paketet finns inte.");
+                            EscapeToMenuAdmin();
+                            break;                    
                         }
                         break;
-
 
                     case "3":
                         //Visa alla paket i Dictionary
-                        Console.Clear();
                         registry.ShowAllParcels();
+                        EscapeToMenuAdmin();
                         break;
 
                     case "4":
-                        Console.WriteLine("========================================");
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Programmet kommer nu att avslutas.");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        Console.WriteLine("========================================");
+                        Console.WriteLine("*************************");
+                        Console.WriteLine("*                       *");
+                        Console.WriteLine("*  Programmet avslutas  *");
+                        Console.WriteLine("*                       *");
+                        Console.WriteLine("*************************");
                         Environment.Exit(0);
-
                         break;
 
                     case "5":
-                        Console.Clear();
                         GetOmbudAMenu();
                         break;
 
@@ -122,12 +127,10 @@ namespace PostalService.Models
                         break;
 
                     case "7":
-                        Console.Clear();
                         GetStationBMenu();
                         break;
 
                     case "8":
-                        Console.Clear();
                         GetOmbudBMenu();
                         break;
 
@@ -135,16 +138,12 @@ namespace PostalService.Models
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Ogiltig input");
                         Console.WriteLine();
-                        Console.WriteLine("Vännligen skriv enbart den specificerade siffran för det du vill göra. ");
+                        Console.WriteLine("Vänligen skriv enbart den specificerade siffran för det du vill göra. ");
                         Console.WriteLine();
                         Console.ResetColor();
                         break;
-
-
                 }
-
             }
-
         }
 
         public void GetOmbudAMenu()
@@ -360,5 +359,12 @@ namespace PostalService.Models
             }
         }
 
+        public void EscapeToMenuAdmin()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+            Console.ReadKey();
+            Console.Clear();
+        }
     }
 }

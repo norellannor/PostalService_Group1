@@ -50,8 +50,6 @@ namespace PostalService.Models.PostalCheckPoints
                 servicePoint.ReceiveDeliveredParcel(parcel);
             }
         }
-
-
         
         public void ViewParcelsInTransport()
         {

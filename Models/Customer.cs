@@ -9,9 +9,7 @@ namespace PostalService.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-
         public Address Address { get; private set; }
-
 
         public Customer(string name, Address address, string phoneNumber = "", string email = "")
         {
@@ -21,7 +19,6 @@ namespace PostalService.Models
             Address = address;
 
         }
-
 
         public override string ToString()
         {

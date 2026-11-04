@@ -4,8 +4,7 @@
     {
         string StateText { get; }
         void Handle(ParcelStatus parcelStatus);
-
-       
+   
 
     }
 }

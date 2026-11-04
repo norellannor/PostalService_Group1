@@ -1,5 +1,7 @@
-﻿using PostalService.Models.ShippingStrategy;
+﻿using Microsoft.Win32;
 using PostalService.Models.Observer;
+using PostalService.Models.ShippingStrategy;
+using PostalService.Models.WeightStrategy;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
@@ -27,18 +29,18 @@ namespace PostalService.Models
             Customer bengt = new Customer("Bengt Karlsson", new Address("Lingonvägen 3", "77130", "Ludvika"));
             Customer anna = new Customer("Anna Berg", new Address("Kungsgatan 20", "11122", "Stockholm"));
 
-            AddParcel(new Parcel(1.5m, erika, emelie, new StandardShipping()));   // 1001, lätt
-            AddParcel(new Parcel(8m, bengt, lisa, new ExpressShipping()));        // 1002, medel
-            AddParcel(new Parcel(22m, anna, erika, new EconomyShipping()));       // 1003, tung
-            AddParcel(new Parcel(0.5m, lisa, bengt, new ExpressShipping()));      // 1004, lätt
-            AddParcel(new Parcel(14m, emelie, anna, new StandardShipping()));     // 1005, medel
+            AddParcel(new Parcel(1.5m, erika, emelie,new LightWeight(), new StandardShipping()));   // 1001, lätt
+            AddParcel(new Parcel(8m, bengt, lisa,new MediumWeight(), new ExpressShipping()));        // 1002, medel
+            AddParcel(new Parcel(22m, anna, erika, new HeavyWeight(), new EconomyShipping()));       // 1003, tung
+            AddParcel(new Parcel(0.5m, lisa, bengt, new LightWeight(), new ExpressShipping()));      // 1004, lätt
+            AddParcel(new Parcel(14m, emelie, anna, new MediumWeight(), new StandardShipping()));     // 1005, medel
         }
         //Metod för att lägga till ett paket, samt generar en key, försändelseid
         public int AddParcel(Parcel parcel)
         {
 
-            int id = nextId;   // ta nuvarande värde
-            nextId++;          // öka till nästa gång
+            int id = nextId;   
+            nextId++;          
             parcel.AssignId(id);
 
             parcelsInSystem.Add(id, parcel);
@@ -48,8 +50,8 @@ namespace PostalService.Models
         }
 
 
-        //Metod för att ta bort paket
-
+       
+        //Metod för att ta bort ett paket från Dictionary ParcelsInSystem
         public void RemoveParcel(int parcelId) 
         { 
             if (parcelsInSystem.ContainsKey(parcelId))
@@ -61,17 +63,18 @@ namespace PostalService.Models
 
         //Metoden tar in ett id, kollar om id finns och skickar ett värde(paket). 
         public Parcel? FindParcelById(int parcelId)
-        {
+        {   
+            
             if (parcelsInSystem.TryGetValue(parcelId, out Parcel? parcel))
             {
                 return parcel;
             }
-
-            return null;
+            Console.WriteLine("Paketet finns inte.");
+            return null;                      
 
         }
 
-        //Skapa en emetod för att kolla ett paket 
+        //Metod för att skriva ut alla paket i Dictionary.  
         public void ShowAllParcels()
         {
             foreach (Parcel parcel in parcelsInSystem.Values)
@@ -79,8 +82,7 @@ namespace PostalService.Models
                 Console.WriteLine($"{parcel.Id}: {parcel.Status.State.StateText} {parcel.Location}");
             }
         }
-
-              
+             
     }
 }
 

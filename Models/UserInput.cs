@@ -87,16 +87,10 @@ namespace PostalService.Models
             while (true)
             {
                 Console.WriteLine(question);
-                Console.WriteLine("Frivilligt - tryck Enter för att hoppa över.");
+                
 
                 string phoneNumber = Console.ReadLine()?.Trim() ?? "";
-                
-                // Telefonnummret är frivilligt.
-                if (string.IsNullOrEmpty(phoneNumber))
-                {
-                    return "";
-                }
-
+            
                 bool validCharacters = phoneNumber.All(c =>
                     char.IsDigit(c) || c == '+');
 
@@ -152,25 +146,6 @@ namespace PostalService.Models
             }
 
         }
-
-        //public string ReadShippingType(string question)
-        //{
-
-        //    while (true)
-        //    {
-        //        Console.WriteLine("Välj Fraktyp:");
-        //        Console.WriteLine("1. Standardfrakt (3dagar):");
-        //        Console.WriteLine("2. Expressfrakt (2 dagar):");
-        //        Console.WriteLine("3. Ekonomifrakt (7dagar):");
-
-        //        Console.WriteLine("Gör ett val mellan 1-3");
-        //        string userInput = Console.ReadLine();
-
-        //        return userInput;
-
-        //    }
-        //}
-
-        
+             
     }
 }

@@ -22,9 +22,6 @@ namespace PostalService.Models
             registry = new ParcelRegistry();
             admin = new ConsoleMenuAdministrator(registry);
         }
-
-
-
         public void Menu()
         {
             bool loopMenu = true;
@@ -57,44 +54,46 @@ namespace PostalService.Models
                         break;
 
                     case "2":
-                        //Lägg in metod från ParcelRegistry
-                        //Console.WriteLine("Du har valt 2");
-                        Console.WriteLine("Sök på ett paket");
-                        Console.WriteLine("Ange försändelse-ID: ");
-
-                        if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                        while (true)
                         {
-                            Console.Clear();
-                            Console.WriteLine("Försändelse-ID kan bara vara siffror.");
-                        }
-                        
+                            //metod för att spåra paket 
+                            Console.WriteLine("Sök på ett paket (eller tryck Enter för att gå tillbaka)");
+                            Console.WriteLine("Ange försändelse-ID: ");
 
-                        Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            string input = Console.ReadLine();
 
-                        if (foundparcel != null)
-                        {
-                            Console.WriteLine($"Paket hittat: {foundparcel}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Paketet finns inte.");
+                            //Användaren kan trycka på esc för att återgå till menyn.
+                            if (input == "")
+                            {
+                                Console.Clear();
+                                break;
+                            }
+
+                            if (!int.TryParse(input, out int parcelSearch))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Försändelse-ID kan bara vara siffror.");
+                                continue;
+                            }
+                            Parcel? foundparcel = registry.FindParcelById(parcelSearch);
+                            if (foundparcel == null)
+                            {
+                                continue;
+                            }
+                            Console.WriteLine(foundparcel);
+
+                            EscapeToMenu();
+                            break;
                         }
 
-                        EscapeToMenu();
                         break;
-                        
-                    
                     
                     case "3":
-                        //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
-                        //i klassen kan man kalla på metod från ParcelRegistry som skriver ut alla paket dictionary. 
-                        
-                        //admin.MenuForAdministrator();
-                        admin.GetConsoleAdimistratorMenu();
+                         admin.GetConsoleAdimistratorMenu();
 
                         break;
                     case "4":
-                        //ombudLudvika.ViewServicePointOutgoingParcels();
+                        
                         Console.WriteLine("*************************");
                         Console.WriteLine("*                       *");
                         Console.WriteLine("*  Programmet avslutas  *");
@@ -102,9 +101,6 @@ namespace PostalService.Models
                         Console.WriteLine("*************************");
                         Environment.Exit(0);
                         break;
-
-
-
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -122,12 +118,5 @@ namespace PostalService.Models
             Console.ReadKey();
             Console.Clear();
         }
-
-        
-            
-
-        
-
-        
     }
 }

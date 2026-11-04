@@ -17,12 +17,9 @@ namespace PostalService.Models.PostalCheckPoints
         private readonly PriorityQueue<Parcel, (int, DateTime)> ServicePointQueue = new();
 
         private readonly Dictionary<int, Parcel> ServicePointDeliveredParcelsDictionary = new();
-
-
-       
+               
         private readonly ParcelRegistry registry;
-
-      
+            
 
         public ServicePoint(string location, ParcelRegistry registry)
         {
@@ -56,15 +53,12 @@ namespace PostalService.Models.PostalCheckPoints
                 Console.WriteLine("Paketet finns registrerat men kan ej tas emot. Kontakta kundsupport.");
                 return false;
             }
-
-            
+                        
             parcel.AddParcelRecievedDate();
             parcel.UpdateParcelLocation(Location);
             parcel.NextState();
             Console.WriteLine();
             
-
-
             ServicePointQueue.Enqueue(parcel, (parcel.Priority, parcel.ParcelRecievedDate.Value));
             return true;
         }
@@ -128,12 +122,10 @@ namespace PostalService.Models.PostalCheckPoints
                 case "2":
                     Console.WriteLine("Då kan vi inte lämna ut");
                     break;
-                    
             }
             
         }
       
-
         public void ViewServicePointOutgoingParcels()
         {
             if (ServicePointQueue.Count == 0)
@@ -168,18 +160,11 @@ namespace PostalService.Models.PostalCheckPoints
             {
                 ServicePointDeliveredParcelsDictionary.Remove(parcelId);
                 
-
             }
             else
             {
                 Console.WriteLine("Paketet finns inte.");
             }
-
         }
-
-
-
-
-
     }
-    }
+}

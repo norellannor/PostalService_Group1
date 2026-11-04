@@ -11,15 +11,12 @@ namespace PostalService.Models.State
             //Starttillstånd
             State = new PendingState();
         }
-
-        
-
-
+               
         public void NextState()
         {
             State.Handle(this);
 
-            //Console.WriteLine(State.StateText);  KOMMENTERAD BORT SÅ DET INTE BLIR DUBBELT 
+           
         }
 
     }
