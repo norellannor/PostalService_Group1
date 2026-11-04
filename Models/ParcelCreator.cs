@@ -13,7 +13,7 @@ namespace PostalService.Models
         /*Metoden validerar de inputs som kommer från ex.
         RegisterParcel (där kunden får registrera sitt paket, det är här bara outputs och inputs.
         
-         ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
+        ParcelCreator: bestämmer vilka frågor som ska ställas. Skapar Address, Customer och fraktstrategin, och till sist Parcel.*/
 
        
         private UserInput userInput = new UserInput();
@@ -45,6 +45,7 @@ namespace PostalService.Models
 
         
 
+        // Metod för att välja fraktstrategi. 
         private IShippingStrategy ChooseShippingStrategy()
         {
             while (true)
