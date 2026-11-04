@@ -70,10 +70,11 @@ namespace PostalService.Models
                         break;
 
                     case "2":
-                        //metod för att spåra paket 
-                        Console.Clear();
-                        Console.WriteLine("Sök på ett paket");
-                        Console.WriteLine("Ange försändelse-ID: ");
+                        while (true)
+                        {
+                            //metod för att spåra paket 
+                            Console.WriteLine("Sök på ett paket (eller tryck Enter för att gå tillbaka)");
+                            Console.WriteLine("Ange försändelse-ID: ");
 
                             string input = Console.ReadLine();
 
@@ -93,13 +94,14 @@ namespace PostalService.Models
                             Parcel? foundparcel = registry.FindParcelById(parcelSearch);
                             if (foundparcel == null)
                             {
-                                continue;   
+                                continue;
                             }
                             Console.WriteLine(foundparcel);
 
                             EscapeToMenuAdmin();
-                            break;                    
+                            break;
                         }
+
                         break;
 
                     case "3":
