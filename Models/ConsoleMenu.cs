@@ -60,16 +60,19 @@ namespace PostalService.Models
                         while (true)
                         {
                             //metod för att spåra paket 
-                            Console.WriteLine("Sök på ett paket");
+                            Console.WriteLine("Sök på ett paket (eller tryck Enter för att gå tillbaka)");
                             Console.WriteLine("Ange försändelse-ID: ");
 
+                            string input = Console.ReadLine();
+
                             //Användaren kan trycka på esc för att återgå till menyn.
-                            if (ReturnOnEscape())
+                            if (input == "")
                             {
-                                return;
+                                Console.Clear();
+                                break;
                             }
 
-                            if (!int.TryParse(Console.ReadLine(), out int parcelSearch))
+                            if (!int.TryParse(input, out int parcelSearch))
                             {
                                 Console.Clear();
                                 Console.WriteLine("Försändelse-ID kan bara vara siffror.");
@@ -124,21 +127,6 @@ namespace PostalService.Models
             Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
             Console.ReadKey();
             Console.Clear();
-        }
-
-        //Ge användaren möjlighet att gå tillbaka till menyn genom att tryck på esc-knappen
-        //ifall användaren inte har rätt data för att gå vidare. 
-        private bool ReturnOnEscape()
-        {
-            if ((Console.ReadKey(true).Key == ConsoleKey.Escape))
-            {
-                Console.Clear();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
