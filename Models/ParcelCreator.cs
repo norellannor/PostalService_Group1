@@ -31,7 +31,7 @@ namespace PostalService.Models
 
         private Customer CreateCustomer(string role)
         {
-            string name = userInput.ReadName($"Namn på {role}:");
+            string name = userInput.ReadName($"Namn på {role} (Ange för-och efternamn:");
             string phoneNumber = userInput.ReadPhoneNumber($"Telefonnummer till {role}:");
             string streetName = userInput.ReadTextWithMaxLength($"Gatuadress för {role}:", 60);
             string postalCode = userInput.ReadPostalCode($"Postnummer för {role}:");
