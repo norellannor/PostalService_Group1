@@ -39,8 +39,8 @@ namespace PostalService.Models
         public int AddParcel(Parcel parcel)
         {
 
-            int id = nextId;   // ta nuvarande värde
-            nextId++;          // öka till nästa gång
+            int id = nextId;   
+            nextId++;          
             parcel.AssignId(id);
 
             parcelsInSystem.Add(id, parcel);
@@ -50,8 +50,8 @@ namespace PostalService.Models
         }
 
 
-        //Metod för att ta bort paket
-
+       
+        //Metod för att ta bort ett paket från Dictionary ParcelsInSystem
         public void RemoveParcel(int parcelId) 
         { 
             if (parcelsInSystem.ContainsKey(parcelId))
@@ -70,14 +70,7 @@ namespace PostalService.Models
                 return parcel;
             }
             Console.WriteLine("Paketet finns inte.");
-            return null;
-          
-          
-            //else
-            //{
-            //    Console.WriteLine("Paketet finns inte.");
-            //}
-            
+            return null;                      
 
         }
 
@@ -89,8 +82,7 @@ namespace PostalService.Models
                 Console.WriteLine($"{parcel.Id}: {parcel.Location} {parcel.Status.State.StateText}");
             }
         }
-
-              
+             
     }
 }
 

@@ -22,9 +22,6 @@ namespace PostalService.Models
             registry = new ParcelRegistry();
             admin = new ConsoleMenuAdministrator(registry);
         }
-
-
-
         public void Menu()
         {
             bool loopMenu = true;
@@ -92,15 +89,11 @@ namespace PostalService.Models
                         break;
                     
                     case "3":
-                        //Skapa klass för inlogg administratör som kan spåra paket och få ut mer information än kunden. 
-                        //i klassen kan man kalla på metod från ParcelRegistry som skriver ut alla paket dictionary. 
-                        
-                        //admin.MenuForAdministrator();
-                        admin.GetConsoleAdimistratorMenu();
+                         admin.GetConsoleAdimistratorMenu();
 
                         break;
                     case "4":
-                        //ombudLudvika.ViewServicePointOutgoingParcels();
+                        
                         Console.WriteLine("*************************");
                         Console.WriteLine("*                       *");
                         Console.WriteLine("*  Programmet avslutas  *");
@@ -108,9 +101,6 @@ namespace PostalService.Models
                         Console.WriteLine("*************************");
                         Environment.Exit(0);
                         break;
-
-
-
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Yellow;

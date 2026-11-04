@@ -25,9 +25,7 @@ namespace PostalService.Models
             decimal weight = userInput.ReadDecimal("Ange paketets vikt i kg (t.ex. 2,5):");
             IWeightStrategy weightStrategy = SetWeightStrategy(weight);
             IShippingStrategy shippingStrategy = ChooseShippingStrategy();
-
-           
-
+          
             return new Parcel(weight, sender, receiver, weightStrategy, shippingStrategy);
         }
 
@@ -43,9 +41,7 @@ namespace PostalService.Models
             return new Customer(name, address, phoneNumber: phoneNumber);
         }
 
-        
-
-        // Metod för att välja fraktstrategi. 
+         // Metod för att välja fraktstrategi. 
         private IShippingStrategy ChooseShippingStrategy()
         {
             while (true)
@@ -118,7 +114,7 @@ namespace PostalService.Models
                 }
 
             }
-            
+        
            
         }
     }

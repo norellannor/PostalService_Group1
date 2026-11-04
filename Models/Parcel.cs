@@ -67,7 +67,7 @@ namespace PostalService.Models
             Location = newLocation;
         }
 
-        public Parcel(decimal weight, Customer sender, Customer receiver, IWeightStrategy weightStrategy, IShippingStrategy shippingStrategy)//int priority = 2
+        public Parcel(decimal weight, Customer sender, Customer receiver, IWeightStrategy weightStrategy, IShippingStrategy shippingStrategy)
         {
             Weight = weight;
             Sender = sender;
@@ -75,7 +75,7 @@ namespace PostalService.Models
             ShippingStrategy = shippingStrategy;
             SentDate = DateTime.Today;
             WeightStrategy = weightStrategy;
-            //Priority = priority;
+           
         }
 
         //Denna metod gör då att paketet känner till sitt Id som den får i ParcelRegistry.AddParcel()
@@ -117,13 +117,7 @@ namespace PostalService.Models
                    $"Frakt: {ShippingStrategy.ShippingType}\n" +
                    $"Prioritet: {Priority}\n" +
                    $"Kostnad:{GetTotalShippingPrice()}:-\n" +
-                   //$"Beräknad leverans: {ShippingStrategy.CalculateEstimatedDeliveryDate(SentDate):d}";
-                   //Beräknat leveransdatum borde vara inlämnat datum + de dagara som frakttypen säger. 
-                   estimatedDeliveryDateText;
-
-
-            //I denna metod kan vi lägga till vilken status paketet har eller om det bara ska synas om det är försenat 
-
+                    estimatedDeliveryDateText;
         }
 
         //Tar in paketets inlämningsdatum 
@@ -160,9 +154,7 @@ namespace PostalService.Models
             return estimated < DateTime.Today;
         }
 
-
-
-        // metoder för observer
+         // metoder för observer
         // registererar/lägger till observer i listan. 
         public void RegisterObserver(IObserver observer)
         {
